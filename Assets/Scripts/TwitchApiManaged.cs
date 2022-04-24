@@ -12,6 +12,8 @@ public class TwitchApiManaged : MonoBehaviour
 
     public Text SigninText;
 
+    private bool authInProgress;
+
     private void Awake()
     {
         Twitch = new TwitchApi(appId);
@@ -20,9 +22,16 @@ public class TwitchApiManaged : MonoBehaviour
         
     }
 
-    public void ButtonTwitchAuth()
+    public async void ButtonTwitchAuth()
     {
-        Twitch.AuthenticateWindow(NetworkBackendMode.HttpListener);
-        SigninText.text = "Singing in...";
+        SigninText.text = "Signing in...";
+        if (await Twitch.AuthenticateWindow(NetworkBackendMode.HttpListener))
+        {
+            SigninText.text = "Sign in success";
+        }
+        else
+        { 
+            SigninText.text = "Sign in failed";
+        }
     }
 }

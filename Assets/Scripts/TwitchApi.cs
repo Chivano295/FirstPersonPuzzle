@@ -19,9 +19,11 @@ public class TwitchApi
     public const int TcpPort = 8888;//5576;
     //Twitter base endpoint for calls
     public Uri TwitchBase = new Uri("https://api.twitch.tv/");
+    public string TwitchAuthorizationBase = "https://id.twitch.tv/";
+
 
     //Endpoint mapping
-    public Dictionary<string, string> Endpoints = new Dictionary<string, string>()
+    public Dictionary<string, string> Endpoints { get; private set; }  = new Dictionary<string, string>()
     {
         { "auth", "oauth2/authorize" },
         { "get_user", "/helix/users" }
@@ -37,7 +39,8 @@ public class TwitchApi
     private string clientId;
     //Deternines wether 
     private bool authorized = false;
-    private string accessToken;
+    private string accessCode;
+    private string token;
     
     // Constructs a new instance to interact with the API with a specific application
     public TwitchApi(string _clientId)
@@ -54,10 +57,10 @@ public class TwitchApi
         tcp = new TcpListener(IPAddress.Loopback, TcpPort);
     }
 
-    public async void AuthenticateWindow(NetworkBackendMode _backendMode = NetworkBackendMode.HttpListener)
+    public async Task<bool> AuthenticateWindow(NetworkBackendMode _backendMode = NetworkBackendMode.HttpListener)
     {
         Process.Start(
-            $"https://id.twitch.tv/{Endpoints["auth"]}?client_id=wu1igcaqgvex2nqrrnqdr2d40c7rjh&response_type=code&force_verify=true&scope=user:read:email&redirect_uri=http://localhost:{TcpPort}"
+            $"{TwitchAuthorizationBase}{Endpoints["auth"]}?client_id=wu1igcaqgvex2nqrrnqdr2d40c7rjh&response_type=code&force_verify=true&scope=user:read:email&redirect_uri=http://localhost:{TcpPort}"
             );
 
         string responseString =
@@ -89,9 +92,33 @@ public class TwitchApi
             await responseOutput.WriteAsync(buffer, 0, buffer.Length);
             responseOutput.Close();
 
-            string reqString = context.Request.Url.ToString();
+            string errString = context.Request.QueryString.Get("error");
+            if (errString is object)
+            {
+                if (errString == "access_denied")
+                {
+                    Logger.LogWarning("User declined");
+                    listener.Stop();
+                    return false;
+                }
+                Logger.LogError("Failed");
+                listener.Stop();
+                return false;
+            }
 
-            accessToken = context.Request.QueryString.Get("code");
+            accessCode = context.Request.QueryString.Get("code");
+
+            HttpRequestMessage tokenMessage = new HttpRequestMessage();
+            tokenMessage.Method = HttpMethod.Post;
+            tokenMessage.RequestUri = new Uri($"{TwitchAuthorizationBase}oauth2/token" +
+                $"?client_id=wu1igcaqgvex2nqrrnqdr2d40c7rjh&code={accessCode}&client_secret=v9w982xzajxbavisjhhfx70tljwc46&grant_type=authorization_code&redirect_uri=http://localhost:8888");
+
+            HttpResponseMessage tokenResponse = await client.SendAsync(tokenMessage);
+
+            if (tokenResponse.StatusCode != HttpStatusCode.OK)
+            {
+                
+            }
 
             listener.Stop();
             
@@ -99,6 +126,7 @@ public class TwitchApi
 
         }
         authorized = true;
+        return true;
     }
 
     public void ValidateToken()
