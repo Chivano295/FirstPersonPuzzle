@@ -8,15 +8,14 @@ using Text = TMPro.TextMeshProUGUI;
 
 public class TwitchApiManaged : MonoBehaviour
 {
-    public string AppId;
-    public string AppSecret;
     public TwitchApi Twitch;
 
-    public TextAsset ConfigFile;
 
     public Text SigninText;
     public Text AccountNameText;
 
+    [SerializeField]
+    private TextAsset ConfigFile;
     private bool authInProgress;
     private AppConfig apCon;
 
