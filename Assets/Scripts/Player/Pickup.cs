@@ -30,10 +30,14 @@ public class Pickup : MonoBehaviour
             }                                                   
         }
         //roept drop functie aan
-        if (Input.GetKeyDown(KeyCode.Q))
+        if(currentgrab != null)
         {
-            Drop();
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Drop();
+            }
         }
+      
             
     }
     public void PickUp()
