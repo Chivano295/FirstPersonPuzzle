@@ -5,4 +5,6 @@ using UnityEngine;
 public class Objectintake : MonoBehaviour
 {
     [SerializeField] GameObject[] objects;
+    
+
 }
