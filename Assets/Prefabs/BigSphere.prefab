@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7137474123631145126}
   - component: {fileID: 7137474123631145145}
   - component: {fileID: 7137474123631145144}
-  - component: {fileID: 2267828980763366172}
+  - component: {fileID: 960678768460645937}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: BigSphere
   m_TagString: Grab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7137474123631145147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.65, y: 0.72, z: -2.59}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -113,7 +113,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2267828980763366172
+--- !u!114 &960678768460645937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1de84f9e6ad7542a1032701e335d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: bruce
+  id: 
