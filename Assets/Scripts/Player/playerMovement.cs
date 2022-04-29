@@ -10,6 +10,7 @@ public class playerMovement : MonoBehaviour
     [SerializeField]private float gravity = -9.81f;
     [SerializeField]private float jumpHeight = 3f;
     [SerializeField]private float cooldown = 0.3f;
+    [SerializeField] private float superJumpHeight = 10f;
 
 
 
@@ -19,6 +20,7 @@ public class playerMovement : MonoBehaviour
 
     Vector3 velocity;
     [SerializeField]bool isGrounded;
+     public bool SuperJump;
     
     void Start()
     {
@@ -56,6 +58,15 @@ public class playerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        if (SuperJump == true)
+        {
+            jumpHeight = superJumpHeight;
+        }
+        else
+        {
+            jumpHeight = 1f;
+        }
 
     }
 }
