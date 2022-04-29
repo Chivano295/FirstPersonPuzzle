@@ -98,11 +98,14 @@ public class TwitchApi
             var context = await listener.GetContextAsync();
             var response = context.Response;
 
+            //Get the network stream then write the buffer to it
             response.ContentLength64 = buffer.Length;
             var responseOutput = response.OutputStream;
             await responseOutput.WriteAsync(buffer, 0, buffer.Length);
+            //ALWAYS CLOSE STREAMS WHEN DONE
             responseOutput.Close();
 
+            //Check if there's and error
             string errString = context.Request.QueryString.Get("error");
             if (errString is object)
             {
