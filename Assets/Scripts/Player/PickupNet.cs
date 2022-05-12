@@ -7,60 +7,70 @@ public class PickupNet : NetworkBehaviour
 {
     public Transform equipPos;
     public Camera cam;
+    [SyncVar]
     public GameObject Currentgrab;
     [SerializeField] private float distance;
-    [SerializeField] private bool grab;
-    [SerializeField] private GameObject player;
+    
+    [SyncVar]
+    [SerializeField]
+    private bool grab;
+    
+    private GameObject wantsToGrab;
 
+    [ClientCallback]
     public void Update()
     {
+        if (Currentgrab != null)
+        {
+            Currentgrab.transform.position = equipPos.position;
+        }
         if (Input.GetKeyDown(KeyCode.E) && Currentgrab == null)
         {
             Debug.Log("ik doe iets");
             if (!isLocalPlayer) return;
-            if (!hasAuthority) return;
-            CmdServCheck();                                           
+            //if (!hasAuthority) return;
+            RaycastHit hit; // schiet raycast vanuit camera naar waar je kijkt
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, distance))
+            {
+                wantsToGrab = hit.collider.gameObject;
+                CmdServCheck();
+            }
         }
         //roept drop functie aan
         if(Currentgrab != null && Input.GetKeyDown(KeyCode.Q))
         {
-            Drop();
+            CmdDrop();
             
         }
-      
-            
     }
 
     [Command]
-    public void CmdServCheck()
+    public void CmdServCheck(NetworkConnectionToClient sender = null)
     {
-        RaycastHit hit; // schiet raycast vanuit camera naar waar je kijkt
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, distance))
+        GameObject player = sender.identity.gameObject;
+        if (sender.identity.GetComponent<PickupNet>().wantsToGrab.CompareTag("Grab")) //checkt of hij grab tag heeft
         {
-            if (hit.transform.tag == "Grab") //checkt of hij grab tag heeft
-            {
-                // stopt output van raycast in gameobject en zet de player als parent
-                Currentgrab = hit.transform.gameObject;
-                PickUp();
-                hit.transform.parent = player.transform;
-
-            }
+            Currentgrab = sender.identity.GetComponent<PickupNet>().wantsToGrab;
+            PickUp();
         }
+         
     }
 
-    [ClientRpc]
+    [Server]
     public void PickUp()
     {
         // zet grab op true, de rigidbody van het item op kinematic en zet het object op een set positie
         grab = true;
         Currentgrab.GetComponent<Rigidbody>().isKinematic = true;
         Currentgrab.transform.position = equipPos.transform.position;
+        //Currentgrab.transform.parent = player.transform;
     }
-    public void Drop()
+    [Command]
+    public void CmdDrop()
     {
         // currentgrab gameobject word geleegd, en de player word niet meer als parent gezien en zet rigidbody op niet kinematic
         Currentgrab.GetComponent<Rigidbody>().isKinematic = false;
-        Currentgrab.transform.parent = null;
+        //Currentgrab.transform.parent = null;
         Currentgrab = null;
         grab = false;
         

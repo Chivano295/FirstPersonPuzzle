@@ -40,7 +40,7 @@ public class MouseLookNet : NetworkBehaviour
         
         CmdRotatePlayer();
     }
-    [Command]
+    //[Command]
     public void CmdRotatePlayer()
     {
         //clamps the position so you cant go up to infinity
