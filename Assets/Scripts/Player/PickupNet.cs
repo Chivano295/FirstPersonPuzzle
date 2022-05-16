@@ -23,6 +23,7 @@ public class PickupNet : NetworkBehaviour
         if (Currentgrab != null)
         {
             Currentgrab.transform.position = equipPos.position;
+            Currentgrab.transform.rotation = equipPos.rotation;
         }
         if (Input.GetKeyDown(KeyCode.E) && Currentgrab == null)
         {
@@ -53,7 +54,7 @@ public class PickupNet : NetworkBehaviour
             Currentgrab = sender.identity.GetComponent<PickupNet>().wantsToGrab;
             PickUp();
         }
-         
+        
     }
 
     [Server]
@@ -62,6 +63,7 @@ public class PickupNet : NetworkBehaviour
         // zet grab op true, de rigidbody van het item op kinematic en zet het object op een set positie
         grab = true;
         Currentgrab.GetComponent<Rigidbody>().isKinematic = true;
+        Currentgrab.GetComponent<Collider>().enabled = false;
         Currentgrab.transform.position = equipPos.transform.position;
         //Currentgrab.transform.parent = player.transform;
     }
@@ -70,6 +72,7 @@ public class PickupNet : NetworkBehaviour
     {
         // currentgrab gameobject word geleegd, en de player word niet meer als parent gezien en zet rigidbody op niet kinematic
         Currentgrab.GetComponent<Rigidbody>().isKinematic = false;
+        Currentgrab.GetComponent<Collider>().enabled = true;
         //Currentgrab.transform.parent = null;
         Currentgrab = null;
         grab = false;
