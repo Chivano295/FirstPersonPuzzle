@@ -120,10 +120,14 @@ public class TwitchApi
                 return false;
             }
 
+            //Get the code from the query string (after ? in url)
             accessCode = context.Request.QueryString.Get("code");
 
+            //Constuct a HttpRequestMessage to get an token for API interaction
             HttpRequestMessage tokenMessage = new HttpRequestMessage();
+            //This request must be sent with method POST
             tokenMessage.Method = HttpMethod.Post;
+            //Construct the RequestUri Uri with parameters: client id, access code and client secret
             tokenMessage.RequestUri = new Uri($"{TwitchAuthorizationBase}oauth2/token" +
                 $"?client_id={clientId}&code={accessCode}&client_secret={clientSecret}&grant_type=authorization_code&redirect_uri=http://localhost:8888");
 
@@ -176,11 +180,18 @@ public enum NetworkBackendMode
     TcpSocket
 }
 
+/// <summary>
+///Class for user request on requesting single or multiple users, twitch puts the user under another property called 'data' 
+/// </summary>
 public class TwitchRquestUser
 {
     [JsonProperty("data")]
     public TwitchUser[] Data { get; set; }
 }
+
+/// <summary>
+/// Actuall twitch user data class
+/// </summary>
 public class TwitchUser
 {
     [JsonProperty("login")]
