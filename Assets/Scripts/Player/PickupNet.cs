@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,16 +8,16 @@ public class PickupNet : NetworkBehaviour
 {
     public Transform equipPos;
     public Camera cam;
-    [SyncVar]
+    //[SyncVar]
     public GameObject Currentgrab;
     [SerializeField] private float distance;
     
-    [SyncVar]
+    //[SyncVar]
     [SerializeField]
     private bool grab;
     
     private GameObject wantsToGrab;
-
+    
     [ClientCallback]
     public void Update()
     {
@@ -54,7 +55,10 @@ public class PickupNet : NetworkBehaviour
             Currentgrab = sender.identity.GetComponent<PickupNet>().wantsToGrab;
             PickUp();
         }
-        
+        Span<byte> buffer = stackalloc byte[1024];
+        buffer[0] = 0x68;
+        buffer[1] = 0x00;
+        Debug.Log(buffer.ToString());
     }
 
     [Server]

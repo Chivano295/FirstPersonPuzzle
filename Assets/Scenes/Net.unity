@@ -626,7 +626,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   target: {fileID: 702968974}
-  clientAuthority: 1
+  clientAuthority: 0
   syncVelocity: 1
   clearVelocity: 0
   velocitySensitivity: 0.1
@@ -646,6 +646,7 @@ GameObject:
   - component: {fileID: 731740077}
   - component: {fileID: 731740076}
   - component: {fileID: 731740080}
+  - component: {fileID: 731740081}
   m_Layer: 0
   m_Name: wB
   m_TagString: Untagged
@@ -738,7 +739,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 731740075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f18ca03afd29d542b18ecfd909add12, type: 3}
+  m_Script: {fileID: 11500000, guid: cb02e4f1ebaf4b8489f12996a7a1029b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Recipes:
@@ -749,6 +750,23 @@ MonoBehaviour:
   - {fileID: 2017431603}
   CurrentPickupInstance: {fileID: 0}
   Layout: []
+--- !u!114 &731740081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731740075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2723621882
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1186114339
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +780,7 @@ GameObject:
   - component: {fileID: 1186114341}
   - component: {fileID: 1186114340}
   - component: {fileID: 1186114344}
+  - component: {fileID: 1186114345}
   m_Layer: 0
   m_Name: Slot 1
   m_TagString: Untagged
@@ -854,13 +873,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1186114339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78f7836ed12552d478a938cfaefed6db, type: 3}
+  m_Script: {fileID: 11500000, guid: 926ed53ee60197c45ac459562f13a825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Registar: {fileID: 731740080}
+  Registar: {fileID: 0}
   PlayerPickup: {fileID: 0}
   HeldMaterial: {fileID: 0}
   Id: 0
+--- !u!114 &1186114345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186114339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3367100961
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1246829237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,6 +1161,7 @@ GameObject:
   - component: {fileID: 1409772574}
   - component: {fileID: 1409772573}
   - component: {fileID: 1409772577}
+  - component: {fileID: 1409772578}
   m_Layer: 0
   m_Name: Slot 2
   m_TagString: Untagged
@@ -1217,13 +1254,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1409772572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78f7836ed12552d478a938cfaefed6db, type: 3}
+  m_Script: {fileID: 11500000, guid: 926ed53ee60197c45ac459562f13a825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Registar: {fileID: 731740080}
+  Registar: {fileID: 0}
   PlayerPickup: {fileID: 0}
   HeldMaterial: {fileID: 0}
   Id: 0
+--- !u!114 &1409772578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409772572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2195308969
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1461553723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1826,6 +1880,7 @@ GameObject:
   - component: {fileID: 2017431600}
   - component: {fileID: 2017431599}
   - component: {fileID: 2017431603}
+  - component: {fileID: 2017431604}
   m_Layer: 0
   m_Name: Slot 3
   m_TagString: Untagged
@@ -1918,13 +1973,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 2017431598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78f7836ed12552d478a938cfaefed6db, type: 3}
+  m_Script: {fileID: 11500000, guid: 926ed53ee60197c45ac459562f13a825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Registar: {fileID: 731740080}
+  Registar: {fileID: 0}
   PlayerPickup: {fileID: 0}
   HeldMaterial: {fileID: 0}
   Id: 0
+--- !u!114 &2017431604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017431598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1568267924
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &2083733845
 GameObject:
   m_ObjectHideFlags: 0
