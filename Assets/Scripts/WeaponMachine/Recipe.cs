@@ -17,6 +17,11 @@ public class Recipe : ScriptableObject
         this.OutAmount = craftAmount;
     }
 
+    /// <summary>
+    /// Determines of a Recipe's intake objects match the given array
+    /// </summary>
+    /// <param name="crm"></param>
+    /// <returns></returns>
     public bool IsCompleted(CraftingRecipeMaterial[] crm)
     {
         if (crm.Length < IntakeObjects.Length)
