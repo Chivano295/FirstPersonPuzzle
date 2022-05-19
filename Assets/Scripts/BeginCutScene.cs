@@ -12,7 +12,7 @@ public class BeginCutScene : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) && canSwitch == true)
         {
-            ChangeScene();
+            ChangeScene(); 
         }
     }
     public void ChangeScene()
