@@ -15,7 +15,7 @@ public class WorkBench : MonoBehaviour
 
     private void Awake()
     {
-        //Discover recipes?
+        //Discover recipes? and set them up
         foreach (var item in Slots)
         {
             item.Id = callIdInternal;
@@ -24,22 +24,23 @@ public class WorkBench : MonoBehaviour
             item.Callback = HandleOnItemStore;
         }
     }
-
     private void Update()
     {
-#if UNITY_EDITOR
+    //Debug: allow crafting with U key
+//#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.U))
         {
             AttemptRecipehandle();
         }
-#endif
+//#endif
     }
-
+    //Check if the current inputed items have a recipe mapped
+    //Private callback implementation
     private void HandleOnItemStore(WorkBenchCallbackContext context)
     {
+        //Check if 
         if (context.Item != null)
         {
-            Recipe hitRecipe = null;
             foreach (Recipe recipe in Recipes)
             {
                 CraftingRecipeMaterial[] recipeMaterials = new CraftingRecipeMaterial[3];
@@ -51,18 +52,12 @@ public class WorkBench : MonoBehaviour
 
                     }
                 }
-                if (recipe.IsCompleted(recipeMaterials))
-                {
-                    hitRecipe = recipe;
-                }
             }
-            if (hitRecipe != null)
-            {
-                Instantiate(hitRecipe.RecipeOut.gameObject, transform.position, Quaternion.identity);
-            }
+            AttemptRecipehandle();
         }
     }
 
+    //Check if the current inputed items have a recipe mapped
     public void AttemptRecipehandle()
     {
         Recipe hitRecipe = null;
@@ -82,9 +77,14 @@ public class WorkBench : MonoBehaviour
         if (hitRecipe != null)
         {
             Instantiate(hitRecipe.RecipeOut.gameObject, transform.position, Quaternion.identity);
+            for (int i = 0; i < recipeMaterials.Length; i++)
+            {
+                Destroy(recipeMaterials[i].gameObject);
+                recipeMaterials[i] = null;
+            }
         }
     }
-
+    //Class for holding values to be passed in callbacks on WorkBench
     public class WorkBenchCallbackContext
     {
         public int CallerId;
