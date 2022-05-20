@@ -14226,9 +14226,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6456924922889700549, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
+      propertyPath: MouseSensitivity
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 6456924923491335601, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456924923491335605, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
+      propertyPath: distance
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 6456924923491335606, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
       propertyPath: m_RootOrder
