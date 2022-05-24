@@ -15,8 +15,6 @@ public class MenuDriver : MonoBehaviour
     [SerializeField]
     private int creditsLoc;
 
-    public SceneAsset Oof;
-
     private void Awake()
     {
         if (PlayerPrefsExt.GetInt("game.initialized", 0) == 0)

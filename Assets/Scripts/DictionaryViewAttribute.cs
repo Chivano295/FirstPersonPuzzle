@@ -1,4 +1,4 @@
-﻿using Unity.Collections.LowLevel.Unsafe;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +10,7 @@ public class DictionaryViewAttribute : PropertyAttribute
 #if UNITY_EDITOR
 public class DictionaryViewDrawer : PropertyDrawer
 {
-    struct SendHelp { int a; int b; }
+    public struct SendHelp { int a; int b; }
     //unsafe void a()
     //{
     //    int a = 567;
