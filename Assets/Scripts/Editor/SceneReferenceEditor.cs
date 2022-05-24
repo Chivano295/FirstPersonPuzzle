@@ -13,6 +13,7 @@ public class SceneReferenceEditor : EditorWindow
     public static string RegexExpression { get; }  = "([0-9a-f]){32}";
     public static RegexOptions regexOptions { get; } = RegexOptions.Multiline;
 
+    public int MaxRows = 3000;
     public int editButtonSizeMod = 8;
     public string ScorePath;
 
@@ -20,6 +21,7 @@ public class SceneReferenceEditor : EditorWindow
     MatchCollection guids;
     bool editMode = false;
     bool reload = true;
+    GUIStyle overMaxStyle = new GUIStyle();
 
     [MenuItem("Tools/Experimental/View scene references")]
     public static void OpenViewer()
@@ -38,10 +40,10 @@ public class SceneReferenceEditor : EditorWindow
         window.editMode = true;
         window.reload = false;
     }
-
     private void OnEnable()
     {
         reload = true;
+        Debug.Log("[SceneReferenceEditor] Reloading...");
     }
 
     private void OnGUI()
@@ -51,12 +53,22 @@ public class SceneReferenceEditor : EditorWindow
             ScorePath = EditorSceneManager.GetActiveScene().path;
             guids = Regex.Matches(File.ReadAllText(ScorePath), RegexExpression, regexOptions);
             reload = false;
+            Debug.Log("[SceneReferenceEditor] Reloaded!");
         }
+        bool overMaxRows = false;
         if (!editMode)
         {
             scrollPos = GUILayout.BeginScrollView(scrollPos);
-            foreach (Match xmatch in guids)
+            //foreach (Match xmatch in guids)
+            for (int i = 0; i < guids.Count; i++)
             {
+                if (i >= MaxRows)
+                {
+                    overMaxRows = true;
+                    break;
+                }
+                    
+                Match xmatch = guids[i];
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(new GUIContent(xmatch.Value), GUILayout.Width(184));
             
@@ -67,6 +79,13 @@ public class SceneReferenceEditor : EditorWindow
                 GUILayout.EndHorizontal();
             }
             GUILayout.EndScrollView();
+            if (overMaxRows)
+            {
+                overMaxStyle.fontStyle = FontStyle.Bold;
+                overMaxStyle.active.textColor = Color.red;
+                //overMaxStyle.richText = true;
+                GUILayout.Label(new GUIContent($"{guids.Count}/{MaxRows}"), overMaxStyle);
+            }
             GUILayout.BeginHorizontal();
             Texture2D tex = UnityEditorInternal.InternalEditorUtility.GetIconForFile("Assets/Editor/MyCustomSettings.asset");
             GUILayout.Label(new GUIContent(tex), GUILayout.Width(256), GUILayout.Height(256));
@@ -98,7 +117,6 @@ public class SceneReferenceEditor : EditorWindow
 
                 if (GUILayout.Button(new GUIContent(assetPath)))
                 {
-
                 }
                 GUILayout.EndHorizontal();
             }
