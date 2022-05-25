@@ -11,6 +11,7 @@ public class PickupStacked : MonoBehaviour
 
     [SerializeField] private float distance = 5;
     [SerializeField] private GameObject player;
+    [SerializeField] private int strength = 1;
 
     private Stack<GameObject> grabbedItems = new Stack<GameObject>();
     private HashSet<IsGravityGun> activeGuns = new HashSet<IsGravityGun>();
@@ -25,12 +26,21 @@ public class PickupStacked : MonoBehaviour
             {
                 if (hit.transform.tag == "Grab") //checkt of hij grab tag heeft
                 {
+                    //Check with a script as tag if it's a gravity gun
                     IsGravityGun gravityGun = hit.collider.GetComponent<IsGravityGun>();
                     if (gravityGun != null && activeGuns.Add(gravityGun))
                     {
+                        strength++;
                         MaxHeldObjects++;
                     }
-                    
+
+                    HeldInstruct instruct = hit.collider.GetComponent<HeldInstruct>();
+                    if (instruct != null)
+                    {
+                        if (instruct.Weight > strength)
+                            return;
+                    }
+
                     PickUp(hit.transform.gameObject);
                     hit.transform.parent = player.transform;
 
@@ -43,14 +53,27 @@ public class PickupStacked : MonoBehaviour
                 Drop();
         }       
     }
-    public void PickUp(GameObject target)
+    public void PickUp(GameObject target, HeldInstruct instruct = null)
     {
         // zet grab op true, de rigidbody van het item op kinematic en zet het object op een set positie
         if (target.TryGetComponent<Rigidbody>(out Rigidbody targetRb))
         {
             targetRb.isKinematic = true;
         }
-        target.transform.position = EquipPos.transform.position;
+        if (instruct != null)
+        {
+            instruct.RestoreScale = target.transform.localScale;
+            instruct.RestoreRotation = target.transform.rotation;
+
+            target.transform.position = EquipPos.transform.position + instruct.Offset;
+            target.transform.rotation = instruct.Rotation;
+        }
+        else
+        {
+            target.transform.position = EquipPos.transform.position;
+
+        }
+        
         grabbedItems.Push(target);
     }
     public void Drop()
@@ -65,6 +88,7 @@ public class PickupStacked : MonoBehaviour
         }
         if (gun != null && activeGuns.Remove(gun))
         {
+            strength--;
             MaxHeldObjects--;
         }
         droppedObj.transform.parent = null;
