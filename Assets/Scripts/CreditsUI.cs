@@ -10,5 +10,4 @@ public class CreditsUI : MonoBehaviour
     {
         LeanTween.rotateAround(ToRotate, Vector3.forward, 60, 1f).setEase(LeanTweenType.easeInOutElastic);
     }
-
 }

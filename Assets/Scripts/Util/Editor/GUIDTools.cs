@@ -8,10 +8,17 @@ namespace UnityUtils.Editor
     public class GUIDTools : EditorWindow
     {
         static int guiMode;
+
+        //Guid2Path
         string guidToSearch = "";
         bool noRes = false;
         bool autoFind = false;
         bool priv = false;
+        
+        //Path2Guid
+        string pathToSearch = "";
+        bool pathNoguid = false;
+        bool gPriv = false;
 
         [MenuItem("Assets/Copy GUID")]
         public static void CopyGUID()
@@ -27,17 +34,11 @@ namespace UnityUtils.Editor
             guiMode = 0;
             EditorWindow.GetWindow<GUIDTools>("Finder");
         }
-        [MenuItem("Hierarchy/test")]
+        [MenuItem("Tools/GUID/Path to GUID")]
         static void ChangeObjSceneGui()
         {
             guiMode = 1;
-            EditorWindow.GetWindow<GUIDTools>("Finder");
-        }
-
-        [ContextMenu("Do Something")]
-        void DoSomething()
-        {
-            Debug.Log("Perform operation");
+            EditorWindow.GetWindow<GUIDTools>("Path2Guid");
         }
 
         private void Reset()
@@ -77,6 +78,34 @@ namespace UnityUtils.Editor
                     GUILayout.Label("No asset found with that GUID");
                 }
             }
+            else if (guiMode == 1)
+            {
+                string lastSearch = pathToSearch;
+                pathToSearch = GUILayout.TextField(pathToSearch);
+                if (pathToSearch != lastSearch) Reset();
+                GUILayout.Space(2f);
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Get guid") || autoFind)
+                {
+                    gPriv = true;
+                    if (ValidatePathAsset(pathToSearch))
+                        pathNoguid = false;
+                    else
+                        pathNoguid = true;
+                }
+                //GUILayout.FlexibleSpace();
+                autoFind = EditorGUILayout.Toggle(autoFind);
+                GUILayout.EndHorizontal();
+                GUILayout.Space(2f);
+                if (!pathNoguid && gPriv)
+                {
+                    GUILayout.Label("Guid: " + GetGuidAtPath(pathToSearch));
+                }
+                else if (pathNoguid && gPriv)
+                {
+                    GUILayout.Label("?");
+                }
+            }
         }
         public bool ValidateGUIDAsset(string guid)
         {
@@ -84,8 +113,14 @@ namespace UnityUtils.Editor
             assetFound = AssetDatabase.GUIDToAssetPath(guid) != "";
             return assetFound;
         }
+        public bool ValidatePathAsset(string path)
+        {
+            bool assetFound;
+            assetFound = AssetDatabase.AssetPathToGUID(path) != "";
+            return assetFound;
+        }
 
-        public string GetAssetPath(string guid)
-        { return AssetDatabase.GUIDToAssetPath(guid);  }
+        public string GetAssetPath(string guid) => AssetDatabase.GUIDToAssetPath(guid);
+        public string GetGuidAtPath(string path) => AssetDatabase.AssetPathToGUID(path); 
     }
 }
