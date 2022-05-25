@@ -17,7 +17,7 @@ public class PickupStacked : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && grabbedItems.Count <= MaxHeldObjects)
+        if (Input.GetKeyDown(KeyCode.E) && grabbedItems.Count < MaxHeldObjects)
         {
             Debug.Log("ik doe iets");
             RaycastHit hit; // schiet raycast vanuit camera naar waar je kijkt
