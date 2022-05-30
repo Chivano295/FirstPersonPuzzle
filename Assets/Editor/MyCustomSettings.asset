@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MyCustomSettings
   m_EditorClassIdentifier: Assembly-CSharp::MyCustomSettings
   m_Number: 42
-  m_SomeString: eee
+  m_SomeString: The answer to the universe
