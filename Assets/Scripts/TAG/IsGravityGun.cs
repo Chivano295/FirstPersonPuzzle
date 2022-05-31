@@ -1,4 +1,3 @@
-﻿public class IsGravityGun : Tag
+﻿public sealed class IsGravityGun : Tag
 {
-    
 }
