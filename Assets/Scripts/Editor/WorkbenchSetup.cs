@@ -10,6 +10,8 @@ public class WorkbenchSetup : EditorWindow
 
     private GameObject defaultWorkbench;
     private GameObject defaultWbSlot;
+    private GameObject craftingBaseGo = null;
+
 
     [MenuItem("Tools / Create workbench")]
     public static void CreateWindow()
@@ -23,8 +25,6 @@ public class WorkbenchSetup : EditorWindow
         GUILayout.Label("Fill in the fields to make a workbench");
         GUILayout.Space(1);
 
-        GameObject go = null;
-
-        go = (GameObject)EditorGUILayout.ObjectField(go, typeof(GameObject), false);
+        craftingBaseGo = (GameObject)EditorGUILayout.ObjectField(craftingBaseGo, typeof(GameObject), false);
     }
 }
