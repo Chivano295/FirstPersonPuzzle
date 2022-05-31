@@ -11,6 +11,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
   m_Name: MyCustomSettings
-  m_EditorClassIdentifier: Assembly-CSharp::MyCustomSettings
+  m_EditorClassIdentifier: Assembly-CSharp-Editor::MyCustomSettings
   m_Number: 42
   m_SomeString: The answer to the universe

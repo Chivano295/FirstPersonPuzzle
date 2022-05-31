@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class BeginCutScene : MonoBehaviour
 {
-    public string scene;
+    public int scene;
     public bool canSwitch = false;
 
     public void Update()

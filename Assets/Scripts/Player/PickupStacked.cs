@@ -20,9 +20,7 @@ public class PickupStacked : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && grabbedItems.Count < MaxHeldObjects)
         {
-            Debug.Log("ik doe iets");
-            RaycastHit hit; // schiet raycast vanuit camera naar waar je kijkt
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, distance, ~LayerMask.GetMask("Weegschaal")))
+            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out RaycastHit hit, distance))
             {
                 if (hit.transform.tag == "Grab") //checkt of hij grab tag heeft
                 {
@@ -41,7 +39,7 @@ public class PickupStacked : MonoBehaviour
                             return;
                     }
 
-                    PickUp(hit.transform.gameObject);
+                    PickUp(hit.transform.gameObject, instruct);
                     hit.transform.parent = player.transform;
 
                 }
@@ -67,11 +65,11 @@ public class PickupStacked : MonoBehaviour
 
             target.transform.position = EquipPos.transform.position + instruct.Offset;
             target.transform.rotation = instruct.Rotation;
+            if (instruct.Scale != -Vector3.one) target.transform.localScale = instruct.Scale;
         }
         else
         {
             target.transform.position = EquipPos.transform.position;
-
         }
         
         grabbedItems.Push(target);
