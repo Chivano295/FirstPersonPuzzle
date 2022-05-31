@@ -22,7 +22,7 @@ public class PickupStacked : MonoBehaviour
         {
             Debug.Log("ik doe iets");
             RaycastHit hit; // schiet raycast vanuit camera naar waar je kijkt
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, distance))
+            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, distance, ~LayerMask.GetMask("Weegschaal")))
             {
                 if (hit.transform.tag == "Grab") //checkt of hij grab tag heeft
                 {
