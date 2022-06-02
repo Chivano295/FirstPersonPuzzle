@@ -8,12 +8,18 @@ using System;
 
 public class MenuDriver : MonoBehaviour
 {
+    //public SceneAsset SceneAss;
+    public string SceneAssStr;
+
     [DictionaryView]
     public Dictionary<string, int> SceneLocations = new Dictionary<string, int>(); 
     [SerializeField]
     private int menuScenes;
     [SerializeField]
     private int creditsLoc;
+
+    [SerializeField] private float zR;
+    private GameObject aaaaa;
 
     private void Awake()
     {
@@ -26,6 +32,13 @@ public class MenuDriver : MonoBehaviour
         SceneLocations.Add("credits", 4);
         SceneLocations.Add("settings", 3);
         SceneLocations.Add("game", 2);
+    }
+
+    private void Update()
+    {
+        //Quaternion aa = aaaaa.transform.rotation;
+        //aa.eulerAngles = new Vector3(aa.eulerAngles.x, aa.eulerAngles.y, zR);
+        //aaaaa.transform.rotation = aa;
     }
 
     public void PlayButton()
@@ -83,15 +96,8 @@ public class MenuDriver : MonoBehaviour
         }
     }
 
-    public void PopImage(GameObject popup)
-    {
-        popup.SetActive(true);
-    }
-
     public void PauseGame()
     {
-        //if (GameManager.Instance.IsPaused) UIManager.Instance.isHovering = false;
-        //GameManager.Instance.HandlePause();
-        //UIManager.Instance.ShowPause();
+        
     }
 }
