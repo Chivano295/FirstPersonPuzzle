@@ -8,7 +8,8 @@ using System;
 
 public class MenuDriver : MonoBehaviour
 {
-    public SceneAsset SceneAss;
+    //public SceneAsset SceneAss;
+    public string SceneAssStr;
 
     [DictionaryView]
     public Dictionary<string, int> SceneLocations = new Dictionary<string, int>(); 
@@ -31,16 +32,13 @@ public class MenuDriver : MonoBehaviour
         SceneLocations.Add("credits", 4);
         SceneLocations.Add("settings", 3);
         SceneLocations.Add("game", 2);
-
-        
-
     }
 
     private void Update()
     {
-        Quaternion aa = aaaaa.transform.rotation;
-        aa.eulerAngles = new Vector3(aa.eulerAngles.x, aa.eulerAngles.y, zR);
-        aaaaa.transform.rotation = aa;
+        //Quaternion aa = aaaaa.transform.rotation;
+        //aa.eulerAngles = new Vector3(aa.eulerAngles.x, aa.eulerAngles.y, zR);
+        //aaaaa.transform.rotation = aa;
     }
 
     public void PlayButton()

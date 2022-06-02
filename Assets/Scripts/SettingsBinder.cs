@@ -5,6 +5,11 @@ using UnityEngine.Rendering;
 using TMPro;
 
 using UnityUtils;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
+
+using Text = TMPro.TextMeshProUGUI;
 
 public class SettingsBinder : MonoBehaviour
 {
@@ -26,35 +31,66 @@ public class SettingsBinder : MonoBehaviour
     public int TexLevel = 0;
     public int ShadowLevel = 0;
 
+    #endregion
+    #region AudioVariables
+    public AudioMixer LinkedMixer;
+
+    public Slider MasterVolumeSlider;
+    public Slider MusicVolumeSlider;
+    public Slider SfxVolumeSlider;
+
+    #endregion
+    #region PreviewPane
+    public Image ImagePane;
+    public Text DescriptionPane;
+    #endregion
+
     private bool loadedQuality = false;
-#endregion
+
+
 
     private void Awake()
     {
         if (KeyText != null) KeyText.text = string.Format(KeyText.text,PlayerPrefsExt.GetLong("game.scores.HighScore", 04324).ToString());
         //Set qualities RUNTIME
         List<TMP_Dropdown.OptionData> _qualities = new List<TMP_Dropdown.OptionData>();
-        //qualityDropdown.options = null;
+        //Get the quality levels
         foreach (var qt in QualitySettings.names)
         {
             Debug.Log(qt);
             _qualities.Add(new TMP_Dropdown.OptionData(qt));
         }
+
         
         QualityDropdown.options = _qualities;
+        //refresh the quality dropdown
         QualityDropdown.RefreshShownValue();
+
+        //Get the current quality settings
         QualityLevel = QualitySettings.GetQualityLevel();
         AALevel = QualitySettings.antiAliasing;
         TexLevel = QualitySettings.masterTextureLimit;
         ShadowLevel = (int)QualitySettings.shadowResolution;
+
+        //Set the dropdowns  to the current quality settings
         QualityDropdown.value = QualityLevel;
         AADropdown.value = AALevel;
         TexDropdown.value = TexLevel;
         ShadowsDropdown.value = ShadowLevel;
+
+        //Refresh the other dropdowns
         AADropdown.RefreshShownValue();
         TexDropdown.RefreshShownValue();
         ShadowsDropdown.RefreshShownValue();
         loadedQuality = true;
+
+
+        LinkedMixer.GetFloat("Master", out float mst);
+        LinkedMixer.GetFloat("Music", out float mus);
+        LinkedMixer.GetFloat("Sfx", out float sfx);
+        MasterVolumeSlider.value = mst;
+        MusicVolumeSlider.value = mus;
+        SfxVolumeSlider.value = sfx;
     }
     public void SetQuality(int _level)
     {
@@ -92,12 +128,22 @@ public class SettingsBinder : MonoBehaviour
         }
         QualitySettings.SetQualityLevel(QualityLevel, true);
     }
+    /// <summary>
+    /// Set the multi-sampling anti-aliasing level
+    /// </summary>
+    /// <param name="level"></param>
     public void SetMSAA(int level)
     { 
         if (!loadedQuality) return;
         if (QualitySettings.GetQualityLevel() != 5) SetQuality(5, false);
         AALevel = level;
-        QualitySettings.antiAliasing = AALevel;
+        if (!UseUrp)
+            QualitySettings.antiAliasing = AALevel;
+        else
+        {
+            var pipe = QualitySettings.renderPipeline as UniversalRenderPipelineAsset;
+            pipe.msaaSampleCount = level;
+        }
         Debug.Log("Updated AA field");
     }
     public void SetTex(int level)
@@ -113,8 +159,22 @@ public class SettingsBinder : MonoBehaviour
         if (!loadedQuality) return;
         if (QualitySettings.GetQualityLevel() != 5) SetQuality(5, false);
         ShadowLevel = level;
-        QualitySettings.shadowResolution = (ShadowResolution)ShadowLevel;
+        QualitySettings.shadowResolution = (UnityEngine.ShadowResolution)ShadowLevel;
         Debug.Log("Updated Shadow field");
+    }
+
+    public void SetMasterVolume(float level)
+    {
+        LinkedMixer.SetFloat("Music", level);
+    }
+
+    public void SetMusicVolume(float level)
+    {
+        LinkedMixer.SetFloat("Music", level);
+    }
+    public void SetSfxVolume(float level)
+    {
+        LinkedMixer.SetFloat("SFX", level);
     }
 
     public void RemoveData()
@@ -122,8 +182,29 @@ public class SettingsBinder : MonoBehaviour
         PlayerPrefs.DeleteAll();
     }
 
+    public void SetPreviewPane(SettingPreviewPaneText sppt)
+    {
+        DescriptionPane.text = sppt.Description;
+        DescriptionPane.gameObject.SetActive(false);
+        if (sppt.PreviewImg != null)
+        {
+            ImagePane.sprite = sppt.PreviewImg;
+            ImagePane.gameObject.SetActive(true);
+        }
+        else
+        {
+            ImagePane.gameObject.SetActive(false);
+        }
+    }
+
+    public void ResetPreviewPane()
+    {
+        DescriptionPane.gameObject.SetActive(false);
+        ImagePane.gameObject.SetActive(false);
+    }
+
     //Yed no
-    int UIToTex(int put)
+    private int UIToTex(int put)
     {
         int res = 0;
         switch (put)
