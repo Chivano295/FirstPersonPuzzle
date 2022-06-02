@@ -47,8 +47,6 @@ public class SettingsBinder : MonoBehaviour
 
     private bool loadedQuality = false;
 
-
-
     private void Awake()
     {
         if (KeyText != null) KeyText.text = string.Format(KeyText.text,PlayerPrefsExt.GetLong("game.scores.HighScore", 04324).ToString());
@@ -87,7 +85,7 @@ public class SettingsBinder : MonoBehaviour
 
         LinkedMixer.GetFloat("Master", out float mst);
         LinkedMixer.GetFloat("Music", out float mus);
-        LinkedMixer.GetFloat("Sfx", out float sfx);
+        LinkedMixer.GetFloat("SFX", out float sfx);
         MasterVolumeSlider.value = mst;
         MusicVolumeSlider.value = mus;
         SfxVolumeSlider.value = sfx;
