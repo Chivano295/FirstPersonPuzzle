@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace UnityUtils
 {
@@ -20,5 +21,6 @@ namespace UnityUtils
 
         public bool loop;
         public float spacialBlend;
+        public AudioMixerGroup mixerGroup;
     }
 }
