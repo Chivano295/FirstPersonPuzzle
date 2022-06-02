@@ -185,7 +185,7 @@ public class SettingsBinder : MonoBehaviour
     public void SetPreviewPane(SettingPreviewPaneText sppt)
     {
         DescriptionPane.text = sppt.Description;
-        DescriptionPane.gameObject.SetActive(false);
+        DescriptionPane.gameObject.SetActive(true);
         if (sppt.PreviewImg != null)
         {
             ImagePane.sprite = sppt.PreviewImg;
