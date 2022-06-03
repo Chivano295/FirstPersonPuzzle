@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427fa20973ffd1a4a8ddecd6873551e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: LoopScene
+  scene: 3
   canSwitch: 0
 --- !u!4 &43166559
 Transform:

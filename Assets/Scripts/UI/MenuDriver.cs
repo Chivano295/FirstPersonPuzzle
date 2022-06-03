@@ -28,8 +28,8 @@ public class MenuDriver : MonoBehaviour
 
         }
         SceneLocations.Add("main", 1);
-        SceneLocations.Add("credits", 3);
-        SceneLocations.Add("settings", 4);
+        SceneLocations.Add("credits", 4);
+        SceneLocations.Add("settings", 5);
         SceneLocations.Add("game", 2);
     }
 
