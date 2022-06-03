@@ -20,7 +20,7 @@ public class PickupStacked : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && grabbedItems.Count < MaxHeldObjects)
         {
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out RaycastHit hit, distance))
+            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out RaycastHit hit, distance, ~LayerMask.GetMask("Weegschaal")))
             {
                 if (hit.transform.tag == "Grab") //checkt of hij grab tag heeft
                 {

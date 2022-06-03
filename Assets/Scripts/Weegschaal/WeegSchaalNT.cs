@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class WeegSchaal : MonoBehaviour
+public class WeegSchaalNT : MonoBehaviour
 {
     public int WeegschaalWeight;
     public bool check = false;
     public TextMeshPro text;
     public int NeededWeight;
-    public DoorTrigger trigger;
+   
    
     public void OnTriggerEnter(Collider other)
     {
@@ -18,10 +18,7 @@ public class WeegSchaal : MonoBehaviour
             check = true;
             WeegschaalWeight += other.gameObject.GetComponent<ObjectWeight>().weight;
             text.text = "" + WeegschaalWeight;
-            if(WeegschaalWeight == NeededWeight)
-            {
-                trigger.SetAnim();
-            }
+           
           
         }
     }
@@ -29,9 +26,6 @@ public class WeegSchaal : MonoBehaviour
     {
         WeegschaalWeight -= other.gameObject.GetComponent<ObjectWeight>().weight;
         text.text = "" + WeegschaalWeight;
-        if (WeegschaalWeight != NeededWeight)
-        {
-            trigger.SetAnimFalse();
-        }
+       
     }
 }
