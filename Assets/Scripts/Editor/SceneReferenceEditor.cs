@@ -43,7 +43,7 @@ public class SceneReferenceEditor : EditorWindow
     {
         SceneReferenceEditor window = GetWindow<SceneReferenceEditor>("Reference editor [Edit]");
         window.ScorePath = EditorSceneManager.GetActiveScene().path;
-        window.guids = Regex.Matches(File.ReadAllText(window.ScorePath), RegexExpression, regexOptions);
+        window.guids = Regex.Matches(File.ReadAllText(window.ScorePath), RegexExpression, RegexOptions);
         for (int i = 0; i < window.guids.Count; i++)
         {
             window.guidsNoDupe.Add(window.guids[i]);
@@ -64,7 +64,7 @@ public class SceneReferenceEditor : EditorWindow
         if (reload)
         {
             ScorePath = EditorSceneManager.GetActiveScene().path;
-            guids = Regex.Matches(File.ReadAllText(ScorePath), RegexExpression, regexOptions);
+            guids = Regex.Matches(File.ReadAllText(ScorePath), RegexExpression, RegexOptions);
             guidsNoDupe = new HashSet<Match>();
             for (int i = 0; i < guids.Count; i++)
             {
