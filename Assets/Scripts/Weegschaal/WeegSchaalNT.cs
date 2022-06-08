@@ -9,23 +9,36 @@ public class WeegSchaalNT : MonoBehaviour
     public bool check = false;
     public TextMeshPro text;
     public int NeededWeight;
+    public int OBJcount;
+    public Scales scales;
+    
    
    
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "Grab")
-        {
-            check = true;
-            WeegschaalWeight += other.gameObject.GetComponent<ObjectWeight>().weight;
-            text.text = "" + WeegschaalWeight;
-           
-          
-        }
+        
+        
+            if (other.transform.tag == "Grab")
+            {
+                check = true;
+                WeegschaalWeight += other.gameObject.GetComponent<ObjectWeight>().weight;
+                text.text = "" + WeegschaalWeight;
+                OBJcount += 1;
+            
+            }
+       
+        
     }
     public void OnTriggerExit(Collider other)
     {
-        WeegschaalWeight -= other.gameObject.GetComponent<ObjectWeight>().weight;
-        text.text = "" + WeegschaalWeight;
-       
+        if (other.transform.tag == "Grab")
+        {
+            WeegschaalWeight -= other.gameObject.GetComponent<ObjectWeight>().weight;
+            text.text = "" + WeegschaalWeight;
+            OBJcount -= 1;
+            
+        }
+
+
     }
 }
