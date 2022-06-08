@@ -7,13 +7,14 @@ public class Pickup : MonoBehaviour
     public Transform equipPos;
     public Camera cam;
     public GameObject Currentgrab;
+    public bool GravityGunHeld = false;
     [SerializeField] private float distance;
     [SerializeField] private bool grab;
     [SerializeField] private GameObject player;
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && Currentgrab == null)
+        if (Input.GetKeyDown(KeyCode.R) && Currentgrab == null)
         {
             Debug.Log("ik doe iets");
             RaycastHit hit; // schiet raycast vanuit camera naar waar je kijkt
@@ -24,6 +25,8 @@ public class Pickup : MonoBehaviour
                     // stopt output van raycast in gameobject en zet de player als parent
                     Currentgrab = hit.transform.gameObject;
                     PickUp();
+                    if (hit.collider.GetComponent<IsGravityGun>())
+                        GravityGunHeld = true;
                     hit.transform.parent = player.transform;
 
                 }
@@ -32,8 +35,9 @@ public class Pickup : MonoBehaviour
         //roept drop functie aan
         if(Currentgrab != null)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Y))
             {
+                GravityGunHeld = false;
                 Drop();
             }
         }
