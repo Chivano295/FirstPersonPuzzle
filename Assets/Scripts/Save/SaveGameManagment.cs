@@ -5,9 +5,9 @@ using UnityEngine;
 public class SaveGameManagment
 {
     public const int CurrentSaveVersion = 1;
-    public readonly string SavePathBinary = Path.Combine(Application.dataPath, "/save.bin");
-    public readonly string SavePathJson = Path.Combine(Application.dataPath, "/save.json");
-    public readonly string SavePathEncrypted = Path.Combine(Application.dataPath, "/save.dat");
+    public string SavePathBinary => Path.Combine(Application.dataPath, "/save.bin");
+    public string SavePathJson => Path.Combine(Application.dataPath, "/save.json");
+    public string SavePathEncrypted => Path.Combine(Application.dataPath, "/save.dat");
     public FileSaveMode Fsm = FileSaveMode.FileSystemBinary;
 
     public SaveData Load()
