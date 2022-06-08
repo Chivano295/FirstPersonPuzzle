@@ -6,6 +6,7 @@ public class Scales : MonoBehaviour
 {
     public WeegSchaalNT scaleSide1;
     public WeegSchaalNT scaleSide2;
+    public Animator anim;
     public int difference;
     public float percentageDif;
 
@@ -14,10 +15,13 @@ public class Scales : MonoBehaviour
     public float rotation;
     public int degreeMP;
 
+    public int totalCount;
+
 
    
     public void Update()
     {
+        //regelt hoe zwaar alles is
         if(scaleSide1.WeegschaalWeight > scaleSide2.WeegschaalWeight)
         {
             difference = scaleSide1.WeegschaalWeight - scaleSide2.WeegschaalWeight;
@@ -33,12 +37,34 @@ public class Scales : MonoBehaviour
             percentageDif = (float)difference / (float)scaleSide1.WeegschaalWeight;
             
         }
-        rotation = percentageDif * degreeMP;
+        if(scaleSide2.WeegschaalWeight == scaleSide1.WeegschaalWeight)
+        {
+            percentageDif = 0;
+        }
+        //checkt of het infinity is, zoja is infity == 0
+        if (float.IsInfinity(percentageDif))
+        {
+            percentageDif = 0;
+        }
 
+        rotation = percentageDif * degreeMP;
+        //doet de daadwerkelijke rotatie
         Quaternion aa = Draaibalk.transform.localRotation;
         aa.eulerAngles = new Vector3(aa.eulerAngles.x, aa.eulerAngles.y, rotation);
         Draaibalk.transform.localRotation = aa;
 
-        
+        //getal van objecten op beide weegschalen
+        totalCount = scaleSide1.OBJcount + scaleSide2.OBJcount;
+
+        if( percentageDif == 0)
+        {
+            Debug.Log("niets");
+        }
+
+       if(totalCount == 9 && percentageDif == 0)
+        {
+            anim.SetBool("Doorup", true);
+        }
+
     }
 }

@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: bac4690131790c1478eec9899b836a72, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -2705,6 +2705,8 @@ PlayableDirector:
     value: {fileID: 43166557}
   - key: {fileID: -976056786445742422, guid: 0db50d54749370741afffe718f023558, type: 2}
     value: {fileID: 1133256366}
+  - key: {fileID: 2812025973287008886, guid: 0db50d54749370741afffe718f023558, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1577944129
