@@ -6,9 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Pre-Fetch.unity
+    guid: b90c19a3353b672408fe01198f9cd5b0
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9b10e9c059be44e4997bc241a186214e
+  - enabled: 1
     path: Assets/Scenes/Cutscene.unity
     guid: 69221212c5e3f2d48bf5b3b625fe1f98
   - enabled: 1
-    path: Assets/Scenes/LoopScene.unity
-    guid: 3ad69b048a9fcbf4fb5d8e607306d387
+    path: Assets/Scenes/Blockout 2.unity
+    guid: 8aae5a9ab1c75d740b9bef481636b9d3
+  - enabled: 1
+    path: Assets/Scenes/CreditsMenu.unity
+    guid: 39726487853ee354aa5179e3259f4ec1
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: bfe2442569a45014084350c3949efe41
+  - enabled: 1
+    path: Assets/Scenes/Net.unity
+    guid: f8058b47723af914ba5438d4f1d3bcc3
   m_configObjects: {}
