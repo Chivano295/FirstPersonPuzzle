@@ -5,9 +5,9 @@ using UnityEngine;
 public class SaveGameManagment
 {
     public const int CurrentSaveVersion = 1;
-    public string SavePathBinary => Path.Combine(Application.dataPath, "/save.bin");
-    public string SavePathJson => Path.Combine(Application.dataPath, "/save.json");
-    public string SavePathEncrypted => Path.Combine(Application.dataPath, "/save.dat");
+    public string SavePathBinary => Path.Combine(Application.dataPath, "save.bin");
+    public string SavePathJson => Path.Combine(Application.dataPath, "save.json");
+    public string SavePathEncrypted => Path.Combine(Application.dataPath, "save.dat");
     public FileSaveMode Fsm = FileSaveMode.FileSystemBinary;
 
     public SaveData Load()
@@ -30,6 +30,7 @@ public class SaveGameManagment
 
     public void Save(SaveData sd)
     {
+        Debug.Log(Application.dataPath);
         switch (Fsm)
         {
             case FileSaveMode.FileSystemBinary:
@@ -61,13 +62,17 @@ public class SaveGameManagment
     {
         if (!File.Exists(SavePathBinary))
             return null;
-
-        using FileStream fs = File.OpenWrite(SavePathBinary);
+        using FileStream fs = File.OpenRead(SavePathBinary);
         using BinaryReader br = new BinaryReader(fs);
 
         SaveData saveData = new SaveData();
 
         saveData.SaveVersion = br.ReadInt32();
+        if (saveData.SaveVersion != CurrentSaveVersion)
+        {
+            return SaveData.OutdatedSave;
+        }
+
         saveData.PlayerPosition = br.ReadVec3();
         int rigids = br.ReadInt32();
         saveData.RigidBodyDatas = new RigidBodyData[rigids];

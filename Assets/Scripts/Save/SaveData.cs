@@ -16,6 +16,22 @@ public class SaveData
 
     //Every rigidbody
     public RigidBodyData[] RigidBodyDatas;
+
+    public SaveData() { }
+    public SaveData(int ver)
+    {
+        SaveVersion = ver;
+    }
+
+    public static SaveData OutdatedSave
+    {
+        get
+        {
+            SaveData save = new SaveData();
+            save.SaveVersion = -1;
+            return save;
+        }
+    }
 }
 public struct RigidBodyData
 {
@@ -50,5 +66,16 @@ public struct RigidBodyData
         bodyData.Velocity = binaryReader.ReadVec3();
         bodyData.AngularVelocity = binaryReader.ReadVec3();
         return bodyData;
+    }
+
+    public static RigidBodyData Empty => new RigidBodyData(Vec3.zero, Vec3.zero, Vec3.zero);
+
+    public static bool operator ==(RigidBodyData left, RigidBodyData right)
+    {
+        return (left.Position == right.Position) && (left.Velocity == right.Velocity) && (left.AngularVelocity == right.AngularVelocity);
+    }
+    public static bool operator !=(RigidBodyData left, RigidBodyData right)
+    {
+        return !(left == right);
     }
 }
