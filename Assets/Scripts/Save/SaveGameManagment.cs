@@ -30,11 +30,26 @@ public class SaveGameManagment
 
     public void Save(SaveData sd)
     {
-        Debug.Log(Application.dataPath);
         switch (Fsm)
         {
             case FileSaveMode.FileSystemBinary:
                 SaveFsBinary(sd);
+                break;
+            case FileSaveMode.FileSystemJsonUtf8:
+                break;
+            case FileSaveMode.FileSystemEncrypted:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void Delete()
+    {
+        switch (Fsm)
+        {
+            case FileSaveMode.FileSystemBinary:
+                DeleteFsBinary();
                 break;
             case FileSaveMode.FileSystemJsonUtf8:
                 break;
@@ -81,6 +96,11 @@ public class SaveGameManagment
             saveData.RigidBodyDatas[i] = RigidBodyData.ReadFromBinary(br);
         }
         return saveData;
+    }
+
+    private void DeleteFsBinary()
+    {
+        File.Delete(SavePathBinary);
     }
 }
 

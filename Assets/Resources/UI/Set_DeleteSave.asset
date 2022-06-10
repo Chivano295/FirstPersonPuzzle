@@ -15,3 +15,8 @@ MonoBehaviour:
   PreviewImg: {fileID: 0}
   Description: Deleted save files cannot be recovered are you sure you want to delete
     save data?
+  EnableButton: 1
+  ButtonText: Delete save
+  ButtonEvent:
+    m_PersistentCalls:
+      m_Calls: []

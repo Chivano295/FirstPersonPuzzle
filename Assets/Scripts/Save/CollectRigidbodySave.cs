@@ -5,6 +5,7 @@ using UnityEngine;
 public class CollectRigidbodySave : MonoBehaviour
 {
     public Transform Player;
+    public CharacterController PlayerController;
 
     public SaveGameManagment SaveManagment = new SaveGameManagment();
 
@@ -39,6 +40,10 @@ public class CollectRigidbodySave : MonoBehaviour
             }
             data.RigidBodyDatas[i].SetRigidbody(evil[i]);
         }
-        Player.GetComponent<CharacterController>().Move(data.PlayerPosition);
+
+        //Player.GetComponent<CharacterController>().Move(data.PlayerPosition);
+        PlayerController.enabled = false;
+        Player.position = data.PlayerPosition;
+        PlayerController.enabled = true;
     }
 }
