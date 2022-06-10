@@ -11,6 +11,10 @@ public class SaveGameManagment
     public string SavePathEncrypted => Path.Combine(Application.dataPath, "save.dat");
     public FileSaveMode Fsm = FileSaveMode.FileSystemBinary;
 
+    /// <summary>
+    /// Loads save data from disk in the specifield FileSaveMode <see cref="Fsm"/>
+    /// </summary>
+    /// <returns></returns>
     public SaveData Load()
     {
         SaveData sv = null;
@@ -44,7 +48,34 @@ public class SaveGameManagment
                 break;
         }
     }
+    /// <summary>
+    /// Attempts to delete the save file
+    /// </summary>
+    /// <returns>true if it succeeded, false if does not exists</returns>
+    public bool TryDelete()
+    {
+        switch (Fsm)
+        {
+            case FileSaveMode.FileSystemBinary:
+                if (File.Exists(SavePathBinary))
+                {
+                    Delete();
+                    return true;
+                }
+                break;
+            case FileSaveMode.FileSystemJsonUtf8:
+                break;
+            case FileSaveMode.FileSystemEncrypted:
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
 
+    /// <summary>
+    /// Deletes the save regardless if it exists or not
+    /// </summary>
     public void Delete()
     {
         switch (Fsm)
