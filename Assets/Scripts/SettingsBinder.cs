@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using UnityEngine.Rendering.Universal;
 
 using Text = TMPro.TextMeshProUGUI;
+using System.IO;
 
 public class SettingsBinder : MonoBehaviour
 {
@@ -40,6 +41,10 @@ public class SettingsBinder : MonoBehaviour
     public Slider SfxVolumeSlider;
 
     #endregion
+    #region SaveVariables
+    public SaveGameManagment Sgm = new SaveGameManagment();
+    public Text DateText;
+    #endregion
     #region PreviewPane
     public Image ImagePane;
     public Text DescriptionPane;
@@ -51,7 +56,6 @@ public class SettingsBinder : MonoBehaviour
 
     private void Awake()
     {
-        if (KeyText != null) KeyText.text = string.Format(KeyText.text,PlayerPrefsExt.GetLong("game.scores.HighScore", 04324).ToString());
         //Set qualities RUNTIME
         List<TMP_Dropdown.OptionData> _qualities = new List<TMP_Dropdown.OptionData>();
         //Get the quality levels
@@ -91,6 +95,8 @@ public class SettingsBinder : MonoBehaviour
         MasterVolumeSlider.value = mst;
         MusicVolumeSlider.value = mus;
         SfxVolumeSlider.value = sfx;
+
+        DateText.text = Sgm.GetLastSaveDate().ToString();
     }
     public void SetQuality(int _level)
     {
@@ -111,6 +117,8 @@ public class SettingsBinder : MonoBehaviour
         TexDropdown.RefreshShownValue();
         ShadowsDropdown.RefreshShownValue();
         Debug.Log("Updated Quality field");
+
+        
     }
     public void SetQuality(int level, bool updateFields)
     {

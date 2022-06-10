@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using UnityEngine;
@@ -58,6 +59,24 @@ public class SaveGameManagment
             default:
                 break;
         }
+    }
+
+    public DateTime GetLastSaveDate()
+    {
+        DateTime saveDate = default;
+        switch (Fsm)
+        {
+            case FileSaveMode.FileSystemBinary:
+                saveDate = File.GetLastWriteTime(SavePathBinary);
+                break;
+            case FileSaveMode.FileSystemJsonUtf8:
+                break;
+            case FileSaveMode.FileSystemEncrypted:
+                break;
+            default:
+                break;
+        }
+        return saveDate;
     }
 
     private void SaveFsBinary(SaveData saveData)
