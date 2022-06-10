@@ -17,8 +17,10 @@ public class Scales : MonoBehaviour
 
     public int totalCount;
 
+    float lastRot = 0;
+    bool updated => lastRot == rotation;
 
-   
+
     public void Update()
     {
         //regelt hoe zwaar alles is
@@ -49,9 +51,15 @@ public class Scales : MonoBehaviour
 
         rotation = percentageDif * degreeMP;
         //doet de daadwerkelijke rotatie
-        Quaternion aa = Draaibalk.transform.localRotation;
-        aa.eulerAngles = new Vector3(aa.eulerAngles.x, aa.eulerAngles.y, rotation);
-        Draaibalk.transform.localRotation = aa;
+        //Quaternion aa = Draaibalk.transform.localRotation;
+        //aa.eulerAngles = new Vector3(aa.eulerAngles.x, aa.eulerAngles.y, rotation);
+        //Draaibalk.transform.localRotation = aa;
+
+        if (rotation != 0 && !updated)
+        {
+            lastRot = rotation;
+            LeanTween.rotateZ(Draaibalk.gameObject, rotation, 10).setEaseInBounce();
+        }
 
         //getal van objecten op beide weegschalen
         totalCount = scaleSide1.OBJcount + scaleSide2.OBJcount;

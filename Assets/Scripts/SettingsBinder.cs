@@ -43,6 +43,8 @@ public class SettingsBinder : MonoBehaviour
     #region PreviewPane
     public Image ImagePane;
     public Text DescriptionPane;
+    public GameObject ButtonSelf;
+    public Text ButtonTxt;
     #endregion
 
     private bool loadedQuality = false;
@@ -193,12 +195,24 @@ public class SettingsBinder : MonoBehaviour
         {
             ImagePane.gameObject.SetActive(false);
         }
+        if (sppt.EnableButton)
+        {
+            ButtonSelf.SetActive(true);
+            ButtonTxt.text = sppt.ButtonText;
+        }
     }
 
     public void ResetPreviewPane()
     {
         DescriptionPane.gameObject.SetActive(false);
         ImagePane.gameObject.SetActive(false);
+        ButtonSelf.SetActive(false);
+    }
+
+    public void DeleteSave()
+    {
+        new SaveGameManagment().Delete();
+        ButtonTxt.text = "Deleted!";
     }
 
     //Yed no
