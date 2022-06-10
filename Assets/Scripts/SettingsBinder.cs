@@ -12,6 +12,9 @@ using UnityEngine.Rendering.Universal;
 using Text = TMPro.TextMeshProUGUI;
 using System.IO;
 
+/// <summary>
+/// Binds the settings and UI together
+/// </summary>
 public class SettingsBinder : MonoBehaviour
 {
     //URP SPECIFIC
@@ -56,12 +59,12 @@ public class SettingsBinder : MonoBehaviour
 
     private void Awake()
     {
-        //Set qualities RUNTIME
+        #region SetupGraphicsUI
+        //Get qualities RUNTIME
         List<TMP_Dropdown.OptionData> _qualities = new List<TMP_Dropdown.OptionData>();
         //Get the quality levels
         foreach (var qt in QualitySettings.names)
         {
-            Debug.Log(qt);
             _qualities.Add(new TMP_Dropdown.OptionData(qt));
         }
 
@@ -87,17 +90,26 @@ public class SettingsBinder : MonoBehaviour
         TexDropdown.RefreshShownValue();
         ShadowsDropdown.RefreshShownValue();
         loadedQuality = true;
+        #endregion
 
-
+        #region GetCurrentAudioVolumes
         LinkedMixer.GetFloat("Master", out float mst);
         LinkedMixer.GetFloat("Music", out float mus);
         LinkedMixer.GetFloat("SFX", out float sfx);
+
         MasterVolumeSlider.value = mst;
         MusicVolumeSlider.value = mus;
         SfxVolumeSlider.value = sfx;
+        #endregion
 
         DateText.text = Sgm.GetLastSaveDate().ToString();
     }
+
+    #region VideoFunc
+    /// <summary>
+    /// Sets quality level, updating the UI
+    /// </summary>
+    /// <param name="_level"></param>
     public void SetQuality(int _level)
     {
         if (!loadedQuality) return;
@@ -106,10 +118,6 @@ public class SettingsBinder : MonoBehaviour
         AALevel = QualitySettings.antiAliasing;
         TexLevel = QualitySettings.masterTextureLimit;
         ShadowLevel = (int)QualitySettings.shadowResolution;
-        //qualityDropdown.value = qualityLevel;
-        //AADropdown.value = AALevel;
-        //TexDropdown.value = TexLevel;
-        //ShadowsDropdown.value = ShadowLevel;
 
         QualitySettings.renderPipeline = QualityPresetAssets[_level];
 
@@ -117,9 +125,13 @@ public class SettingsBinder : MonoBehaviour
         TexDropdown.RefreshShownValue();
         ShadowsDropdown.RefreshShownValue();
         Debug.Log("Updated Quality field");
-
-        
     }
+
+    /// <summary>
+    /// Called when changing quality preset
+    /// </summary>
+    /// <param name="level">Preset to change quality to</param>
+    /// <param name="updateFields">Internal use: show preset as "Custom" and NOT update other graaphics settings dropdown values</param>
     public void SetQuality(int level, bool updateFields)
     {
         QualityLevel = level;
@@ -149,6 +161,7 @@ public class SettingsBinder : MonoBehaviour
             QualitySettings.antiAliasing = AALevel;
         else
         {
+            //TODO: Make patch for URP
             var pipe = QualitySettings.renderPipeline as UniversalRenderPipelineAsset;
             pipe.msaaSampleCount = level;
         }
@@ -170,7 +183,8 @@ public class SettingsBinder : MonoBehaviour
         QualitySettings.shadowResolution = (UnityEngine.ShadowResolution)ShadowLevel;
         Debug.Log("Updated Shadow field");
     }
-
+    #endregion
+    #region AudioFunc
     public void SetMasterVolume(float level)
     {
         LinkedMixer.SetFloat("Music", level);
@@ -184,11 +198,8 @@ public class SettingsBinder : MonoBehaviour
     {
         LinkedMixer.SetFloat("SFX", level);
     }
-
-    public void RemoveData()
-    {
-        PlayerPrefs.DeleteAll();
-    }
+    #endregion
+    #region PreviewPaneFunc
 
     public void SetPreviewPane(SettingPreviewPaneText sppt)
     {
@@ -217,13 +228,16 @@ public class SettingsBinder : MonoBehaviour
         ButtonSelf.SetActive(false);
     }
 
+    #endregion
+
     public void DeleteSave()
     {
-        new SaveGameManagment().Delete();
+        Sgm.Delete();
         ButtonTxt.text = "Deleted!";
     }
 
     //Yed no
+    //Map UI to settings
     private int UIToTex(int put)
     {
         int res = 0;
