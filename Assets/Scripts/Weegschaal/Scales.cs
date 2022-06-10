@@ -58,7 +58,7 @@ public class Scales : MonoBehaviour
         if (rotation != 0 && !updated)
         {
             lastRot = rotation;
-            LeanTween.rotateZ(Draaibalk.gameObject, rotation, 10).setEaseInBounce();
+            LeanTween.rotateZ(Draaibalk.gameObject, rotation, 10).setEaseOutCubic();
         }
 
         //getal van objecten op beide weegschalen
