@@ -37,7 +37,7 @@ public class WeightPlatform : MonoBehaviour
     {
         //platform.transform.localPosition = new Vector3(0, WeegschaalWeight * platformMP, 0);
         LeanTween.moveLocalY(platform, WeegschaalWeight * platformMP, moveTime).setEaseOutCubic();
-        LeanTween.moveLocalY(platform, WeegschaalWeight * platformMP, moveTime).setEaseOutCubic();
+       
 
 
 
