@@ -37,7 +37,7 @@ public class Pausemenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
     }
     //scene switch based on string
     public void ChangeScene(string scene)

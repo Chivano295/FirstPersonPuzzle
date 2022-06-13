@@ -5,20 +5,45 @@ using UnityEngine;
 public class CollectRigidbodySave : MonoBehaviour
 {
     public Transform Player;
+    public CharacterController PlayerController;
 
     public SaveGameManagment SaveManagment = new SaveGameManagment();
 
+    private Rigidbody[] evil = null;
+
     public void DiscoverableSave()
     {
-        Rigidbody[] evil = FindObjectsOfType<Rigidbody>();
-        RigidBodyData[] rigidBodyDatas = new RigidBodyData[evil.Length];
+        SaveData sd = new SaveData(SaveGameManagment.CurrentSaveVersion);
+        evil = FindObjectsOfType<Rigidbody>();
+        sd.RigidBodyDatas = new RigidBodyData[evil.Length];
         for (int i = 0; i < evil.Length; i++)
         {
-            rigidBodyDatas[i] = new RigidBodyData(evil[i].position, evil[i].velocity, evil[i].angularVelocity);
+            sd.RigidBodyDatas[i] = evil[i].GetRigidBodyData();
         }
-        SaveData sd = new SaveData();
-        sd.RigidBodyDatas = rigidBodyDatas;
         sd.PlayerPosition = Player.position;
         SaveManagment.Save(sd);
+    }
+
+    public void DiscoverableLoad()
+    {
+        SaveData data = SaveManagment.Load();
+        if (data == SaveData.OutdatedSave) throw new System.Exception("Please resave to update the save file");
+        for (int i = 0; i < evil.Length; i++)
+        {
+            if (data.RigidBodyDatas[i] == RigidBodyData.Empty)
+            {
+                Debug.LogError("Err: cannot empty");
+            }
+            if (evil[i] == null)
+            {
+                Debug.LogError("Err: cannot null");
+            }
+            data.RigidBodyDatas[i].SetRigidbody(evil[i]);
+        }
+
+        //Player.GetComponent<CharacterController>().Move(data.PlayerPosition);
+        PlayerController.enabled = false;
+        Player.position = data.PlayerPosition;
+        PlayerController.enabled = true;
     }
 }
