@@ -23,6 +23,8 @@ public class SceneReferenceEditor : EditorWindow
     bool editMode = false;
     bool reload = true;
     bool performance = false;
+    bool hideDuplicates = true;
+    bool hasToggleDupe = true;
     GUIStyle overMaxStyle = new GUIStyle();
 
     [MenuItem("Tools/Experimental/View scene references")]
@@ -65,10 +67,13 @@ public class SceneReferenceEditor : EditorWindow
         {
             ScorePath = EditorSceneManager.GetActiveScene().path;
             guids = Regex.Matches(File.ReadAllText(ScorePath), RegexExpression, RegexOptions);
-            guidsNoDupe = new HashSet<Match>();
-            for (int i = 0; i < guids.Count; i++)
+            if (hideDuplicates)
             {
-                guidsNoDupe.Add(guids[i]);
+                guidsNoDupe = new HashSet<Match>();
+                for (int i = 0; i < guids.Count; i++)
+                {
+                    guidsNoDupe.Add(guids[i]);
+                }
             }
             reload = false;
             Debug.Log("[SceneReferenceEditor] Reloaded!");
@@ -78,30 +83,58 @@ public class SceneReferenceEditor : EditorWindow
         {
             scrollPos = GUILayout.BeginScrollView(scrollPos);
             int i = 0;
-            foreach (Match xmatch in guidsNoDupe)
-            //for (int i = 0; i < guids.Count; i++)
+            if (hideDuplicates)
             {
-                if (i >= MaxRows)
+                foreach (Match xmatch in guidsNoDupe)
+                //for (int i = 0; i < guids.Count; i++)
                 {
-                    overMaxRows = true;
-                    if (performance) break;
+                    if (i >= MaxRows)
+                    {
+                        overMaxRows = true;
+                        if (performance) break;
+                    }
+
+                    //Match xmatch = guidsNoDupe[i];
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label(new GUIContent(xmatch.Value), GUILayout.Width(204));
+
+                    GUILayout.Label(new GUIContent("->"), GUILayout.Width(32));
+                    string assetPath = AssetDatabase.GUIDToAssetPath(xmatch.Value);
+
+                    GUILayout.Label(new GUIContent(assetPath));
+                    GUILayout.EndHorizontal();
+                    i++;
                 }
+            }
+            else
+            {
+                foreach (Match xmatch in guids)
+                //for (int i = 0; i < guids.Count; i++)
+                {
+                    if (i >= MaxRows)
+                    {
+                        overMaxRows = true;
+                        if (performance) break;
+                    }
 
-                //Match xmatch = guidsNoDupe[i];
-                GUILayout.BeginHorizontal();
-                GUILayout.Label(new GUIContent(xmatch.Value), GUILayout.Width(184));
-            
-                GUILayout.Label(new GUIContent("->"), GUILayout.Width(32));
-                string assetPath = AssetDatabase.GUIDToAssetPath(xmatch.Value);
+                    //Match xmatch = guidsNoDupe[i];
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label(new GUIContent(xmatch.Value), GUILayout.Width(204));
 
-                GUILayout.Label(new GUIContent(assetPath));
-                GUILayout.EndHorizontal();
-                i++;
+                    GUILayout.Label(new GUIContent("->"), GUILayout.Width(32));
+                    string assetPath = AssetDatabase.GUIDToAssetPath(xmatch.Value);
+
+                    GUILayout.Label(new GUIContent(assetPath));
+                    GUILayout.EndHorizontal();
+                    i++;
+                }
             }
             GUILayout.EndScrollView();
             Texture2D tex = UnityEditorInternal.InternalEditorUtility.GetIconForFile(ScorePath);
             GUILayout.BeginHorizontal();
             GUILayout.Label(new GUIContent(tex), GUILayout.Width(32), GUILayout.Height(32));
+
+            #region Performance Increase
             if (overMaxRows)
             {
                 overMaxStyle.fontStyle = FontStyle.Bold;
@@ -122,6 +155,14 @@ public class SceneReferenceEditor : EditorWindow
             else 
             { 
                 GUILayout.Box("                    ");
+            }
+            #endregion
+
+            hideDuplicates = GUILayout.Toggle(hideDuplicates, new GUIContent("Hide duplicate GUIDs"));
+            if (hideDuplicates != hasToggleDupe)
+            {
+                hasToggleDupe = hideDuplicates;
+                reload = true;
             }
             GUILayout.Label(new GUIContent("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"));
             //Texture2D tex2 = UnityEditorInternal.InternalEditorUtility.GetIconForFile("Assets/Prefabs/BigSphere.prefab");
