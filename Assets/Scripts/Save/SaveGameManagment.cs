@@ -15,13 +15,13 @@ public class SaveGameManagment
     /// Loads save data from disk in the specifield FileSaveMode <see cref="Fsm"/>
     /// </summary>
     /// <returns></returns>
-    public SaveData Load()
+    public SaveData Load(bool loadLegacy = false)
     {
         SaveData sv = null;
         switch (Fsm)
         {
             case FileSaveMode.FileSystemBinary:
-                sv = LoadFsBinary();
+                sv = LoadFsBinary(loadLegacy);
                 break;
             case FileSaveMode.FileSystemJsonUtf8:
                 break;
@@ -110,6 +110,34 @@ public class SaveGameManagment
         return saveDate;
     }
 
+    public bool TryLoadLegacyBinary(out SaveData saveData)
+    {
+        if (!File.Exists(SavePathBinary))
+        {
+            saveData = SaveData.OutdatedSave;
+            return false;
+        }
+        using FileStream fs = File.OpenRead(SavePathBinary);
+        using BinaryReader br = new BinaryReader(fs);
+        saveData = new SaveData();
+
+        saveData.SaveVersion = br.ReadInt32();
+        if (saveData.SaveVersion != CurrentSaveVersion)
+        {
+            saveData = SaveData.OutdatedSave;
+            return false;
+        }
+
+        saveData.PlayerPosition = br.ReadVec3();
+        int rigids = br.ReadInt32();
+        saveData.RigidBodyDatas = new RigidBodyData[rigids];
+        for (int i = 0; i < rigids; i++)
+        {
+            saveData.RigidBodyDatas[i] = RigidBodyData.ReadFromBinary(br);
+        }
+        return true;
+    }
+
     private void SaveFsBinary(SaveData saveData)
     {
         using FileStream fs = File.OpenWrite(SavePathBinary);
@@ -123,7 +151,7 @@ public class SaveGameManagment
             saveData.RigidBodyDatas[i].WriteToBinary(bw);
         }
     }
-    private SaveData LoadFsBinary()
+    private SaveData LoadFsBinary(bool loadLegacy = false)
     {
         if (!File.Exists(SavePathBinary))
             return null;
