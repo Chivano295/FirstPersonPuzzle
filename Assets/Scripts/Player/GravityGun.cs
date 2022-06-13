@@ -5,14 +5,19 @@ using UnityEngine;
 public class GravityGun : MonoBehaviour
 {
     public Transform HoverPos;
+    public Transform HoverAncor;
     public Camera Cam;
     public GameObject Currentgrab;
     public int MaxHeldObjects = 1;
+
+    public float MinLook = 30f;
+    public float MaxLook = 60f;
 
     [SerializeField] private float distance = 5;
     [SerializeField] private GameObject player;
     [SerializeField] private int strength = 1;
     [SerializeField] private float   smoothTime = 0.2f;
+    [SerializeField] private float angleOffset = 90f;
 
     private Stack<GameObject> grabbedItems = new Stack<GameObject>();
     private HashSet<IsGravityGun> activeGuns = new HashSet<IsGravityGun>();
@@ -22,6 +27,22 @@ public class GravityGun : MonoBehaviour
         if (Currentgrab != null && !LeanTween.isTweening(Currentgrab))
         {
             LeanTween.move(Currentgrab, HoverPos.position, smoothTime).setEaseOutCubic();
+        }
+        if (!LeanTween.isTweening(HoverAncor.gameObject))
+        {
+            Vector3 rot = Cam.transform.localRotation.eulerAngles;
+            float angle = rot.x;
+            if (angle >= 180f && angle < 360f + MinLook)
+            {
+                angle = MinLook;
+            }
+            else if (angle < 180f && angle > MaxLook)
+            {
+                angle = MaxLook;
+            }
+            rot.x = angle;
+            //rot.x = Mathf.Clamp(rot.x - angleOffset, WrapAngle(MinLook), MaxLook);
+            LeanTween.rotateLocal(HoverAncor.gameObject, rot, smoothTime);
         }
         if (Input.GetKeyDown(KeyCode.E) && grabbedItems.Count < MaxHeldObjects)
         {
@@ -49,7 +70,9 @@ public class GravityGun : MonoBehaviour
             targetRb.isKinematic = true;
         }
         LeanTween.move(target, HoverPos.position, smoothTime).setEaseOutCubic();
-        LeanTween.rotate(target, Cam.transform.rotation.eulerAngles, 0.2f);
+        Vector3 rot = Cam.transform.localRotation.eulerAngles;
+        rot.x = Mathf.Clamp(rot.x, MinLook, MaxLook);
+        LeanTween.rotateLocal(HoverAncor.gameObject, rot, 0.2f);
 
 
         Currentgrab = target;
@@ -70,7 +93,21 @@ public class GravityGun : MonoBehaviour
             targetRb.isKinematic = false;
         }
 
-
+        col.isTrigger = false;
         Currentgrab = null;
+    }
+
+    private float WrapAngle(float angle)
+    {
+        float o = angle;
+        if (angle < 0)
+        {
+            o = 360 - angle;
+        }
+        else if (angle > 360)
+        {
+            o = angle - 360;
+        }
+        return o;
     }
 }
