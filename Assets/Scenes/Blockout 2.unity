@@ -8484,6 +8484,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4919659239702564438, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
+      propertyPath: sceneId
+      value: 1056136749
+      objectReference: {fileID: 0}
     - target: {fileID: 6456924923491335601, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
       propertyPath: m_Name
       value: Player
@@ -42883,6 +42887,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
+  LadderMask:
+    serializedVersion: 2
+    m_Bits: 0
+  InteractDistance: 2
 --- !u!43 &1374109748
 Mesh:
   m_ObjectHideFlags: 0
@@ -53182,7 +53190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7137474123631145124, guid: 7de02b872e713584c93c46bb2c6b64a3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 106.54
+      value: 106.25
       objectReference: {fileID: 0}
     - target: {fileID: 7137474123631145124, guid: 7de02b872e713584c93c46bb2c6b64a3, type: 3}
       propertyPath: m_LocalPosition.z
