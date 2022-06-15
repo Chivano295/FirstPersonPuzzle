@@ -323,17 +323,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6469a122ebf0084caf8d42312c8864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InLadderRange: 0
+  LookingAtLadder: 0
   controller: {fileID: 6456924923491335607}
+  SuperJump: 0
+  GroundCheck: {fileID: 0}
+  Groundmask:
+    serializedVersion: 2
+    m_Bits: 0
   speed: 7
   gravity: -9.81
   jumpHeight: 10
   cooldown: 0.3
-  groundCheck: {fileID: 6456924922977367410}
+  superJumpHeight: 10
   groundDistance: 0.4
-  groundmask:
-    serializedVersion: 2
-    m_Bits: 64
   isGrounded: 0
+  isClimbing: 0
 --- !u!143 &6456924923491335607
 CharacterController:
   m_ObjectHideFlags: 0
@@ -366,9 +371,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipPos: {fileID: 6456924923581479981}
   cam: {fileID: 6456924922889700551}
+  Currentgrab: {fileID: 0}
+  GravityGunHeld: 0
   distance: 1000
   grab: 0
-  currentgrab: {fileID: 0}
   player: {fileID: 6456924923491335601}
 --- !u!1 &6456924923581479980
 GameObject:
