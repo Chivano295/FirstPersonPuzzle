@@ -10,7 +10,7 @@ public class WeightPlatform : MonoBehaviour
     public TextMeshPro text;
     public GameObject platform;
     public float platformMP;
-    [SerializeField]private float moveTime;
+    [SerializeField] private float moveTime;
 
 
     public void OnTriggerEnter(Collider other)
@@ -21,9 +21,10 @@ public class WeightPlatform : MonoBehaviour
             WeegschaalWeight += other.gameObject.GetComponent<ObjectWeight>().weight;
             text.text = "" + WeegschaalWeight;
             PosUpdate();
-            
+
         }
     }
+
     public void OnTriggerExit(Collider other)
     {
         WeegschaalWeight -= other.gameObject.GetComponent<ObjectWeight>().weight;
