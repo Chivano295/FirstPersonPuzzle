@@ -22,8 +22,6 @@ public class GravityGun : MonoBehaviour
     [SerializeField] private float   smoothTime = 0.2f;
     [SerializeField] private float angleOffset = 90f;
 
-    private Stack<GameObject> grabbedItems = new Stack<GameObject>();
-
     private void Update()
     {
         if (Currentgrab != null && !LeanTween.isTweening(Currentgrab))
