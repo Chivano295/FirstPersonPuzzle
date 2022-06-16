@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class GravityGun : MonoBehaviour
 {
+    //The position to place objects at
     public Transform HoverPos;
+    //Parent of HoverPos to rotate relative to player 
     public Transform HoverAncor;
     public Camera Cam;
     public GameObject Currentgrab;
     public int MaxHeldObjects = 1;
 
+    //Limits vertical movement 
     public float MinLook = 30f;
     public float MaxLook = 60f;
 
     [SerializeField] private float distance = 5;
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject player; 
     [SerializeField] private int strength = 1;
     [SerializeField] private float   smoothTime = 0.2f;
     [SerializeField] private float angleOffset = 90f;
 
     private Stack<GameObject> grabbedItems = new Stack<GameObject>();
-    private HashSet<IsGravityGun> activeGuns = new HashSet<IsGravityGun>();
 
     private void Update()
     {
@@ -44,7 +46,7 @@ public class GravityGun : MonoBehaviour
             //rot.x = Mathf.Clamp(rot.x - angleOffset, WrapAngle(MinLook), MaxLook);
             LeanTween.rotateLocal(HoverAncor.gameObject, rot, smoothTime);
         }
-        if (Input.GetKeyDown(KeyCode.E) && grabbedItems.Count < MaxHeldObjects)
+        if (Input.GetKeyDown(KeyCode.E) && Currentgrab == null)
         {
             RaycastHit hit; // schiet raycast vanuit camera naar waar je kijkt
             if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, distance))
