@@ -28,7 +28,7 @@ namespace UnityUtils.Editor
             GUIUtility.systemCopyBuffer = guid;
         }
 
-        [MenuItem("Tools/GUID/Find by GUID")]
+        [MenuItem("Tools/GUID/Find by GUID _%#f")]
         static void FindByGUID()
         {
             guiMode = 0;

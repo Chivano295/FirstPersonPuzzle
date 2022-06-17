@@ -9,6 +9,10 @@ public class PassiveRotate : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(RotateDir * SpeedMultiplier * Time.deltaTime);
+
+        //if (!LeanTween.isTweening(gameObject)) 
+        //    LeanTween.rotateY(gameObject,  transform.rotation.eulerAngles.y + RotateDir.y * SpeedMultiplier, 0.1f);
+        transform.Rotate(Vector3.up * SpeedMultiplier * Time.deltaTime, Space.World);
+
     }
 }
