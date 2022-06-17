@@ -7,7 +7,7 @@ public class SimpleCameracontroller : MonoBehaviour
     public int speed;
     public Transform transform;
     public float flySpeed;
-    public playerMovement p_move;
+    public PlayerMovement p_move;
 
     // Update is called once per frame
     void Update()

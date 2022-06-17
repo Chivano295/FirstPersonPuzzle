@@ -25,15 +25,17 @@ public class PlayerMovement : MonoBehaviour
     private float cooldown = 0.3f;
     [SerializeField]
     private float superJumpHeight = 10f;
-    [SerializeField]
-    private float groundDistance = 0.4f;
+    
+    public float groundDistance = 0.4f;
     [SerializeField]
     private float elevationSpeed = 0.5f;
     
     private Vector3 velocity;
-    [SerializeField, ReadOnly]
-    private bool isGrounded;
+  
+    public bool isGrounded;
     private float elevation = 0f;
+
+    public bool camController;
     
     void Update()
     { 
@@ -105,5 +107,7 @@ public class PlayerMovement : MonoBehaviour
             jumpHeight = 1f;
         }
 
+        
+                
     }
 }
