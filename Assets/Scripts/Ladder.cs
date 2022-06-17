@@ -4,8 +4,6 @@ using UnityEngine;
     
 public class Ladder : MonoBehaviour
 {
-    public bool IsMainInstance = false;    
-
     public PlayerMovement Player;
     public Transform PlayerView;
     public LayerMask LadderMask;
