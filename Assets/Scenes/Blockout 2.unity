@@ -8496,6 +8496,14 @@ PrefabInstance:
       propertyPath: speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6456924923491335604, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
+      propertyPath: GroundCheck
+      value: 
+      objectReference: {fileID: 348176368}
+    - target: {fileID: 6456924923491335604, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
+      propertyPath: Groundmask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 6456924923491335605, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -8568,6 +8576,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6456924923491335606, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
   m_PrefabInstance: {fileID: 348176365}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &348176368 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6456924922977367410, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
+  m_PrefabInstance: {fileID: 348176365}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &348176369 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6456924922889700548, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
+  m_PrefabInstance: {fileID: 348176365}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &348176370 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6456924923491335604, guid: 4b57cea38976cc2408387dfce71466df, type: 3}
+  m_PrefabInstance: {fileID: 348176365}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182253238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6469a122ebf0084caf8d42312c8864c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &356637846
 GameObject:
   m_ObjectHideFlags: 0
@@ -42886,10 +42915,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3359347b317be654485cb6755a6ba465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  IsMainInstance: 0
+  Player: {fileID: 348176370}
+  PlayerView: {fileID: 348176369}
   LadderMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   InteractDistance: 2
 --- !u!43 &1374109748
 Mesh:
@@ -66704,7 +66735,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh112994
+  m_Name: pb_Mesh61154
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
