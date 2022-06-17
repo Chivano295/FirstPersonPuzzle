@@ -8,11 +8,19 @@ using System;
 using System.Linq;
 using System.Text;
 
+using Text = TMPro.TextMeshProUGUI;
+
 public class MenuDriver : MonoBehaviour
 {
     //public SceneAsset SceneAss;
     public string SceneAssStr;
     public string FlagsPath => Path.Combine(Application.dataPath, "flags");
+
+    public bool EnableResolutionWarning = false;
+    [DrawIf(nameof(EnableResolutionWarning), DisablingType.DontDraw)]
+    public Vector2 IntendedResolution = new Vector2(1920, 1080);
+    [DrawIf(nameof(EnableResolutionWarning), DisablingType.DontDraw)]
+    public Text WarningText;
 
     [DictionaryView]
     public Dictionary<string, int> SceneLocations = new Dictionary<string, int>();
@@ -31,6 +39,17 @@ public class MenuDriver : MonoBehaviour
         SceneLocations.Add("settings", 5);
         SceneLocations.Add("game", 2);
         SceneLocations.Add("gameNoCut", 3);
+
+        //Resolution warn UI
+        if (EnableResolutionWarning)
+        {
+            Resolution res = Screen.currentResolution;
+            if (res.width != IntendedResolution.x || res.height != IntendedResolution.y)
+                WarningText.gameObject.SetActive(true);
+            else
+                WarningText.gameObject.SetActive(false);
+
+        }
     }
 
     public void PlayButton()
