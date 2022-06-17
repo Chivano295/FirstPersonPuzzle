@@ -30,10 +30,12 @@ public class SimpleCameracontroller : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y + flySpeed, transform.position.z);
             }
-            if (Input.GetKey(KeyCode.LeftShift))
+            else if (Input.GetKey(KeyCode.LeftShift))
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y - flySpeed, transform.position.z);
             }
+            
         }
+       
     }
 }
