@@ -64,10 +64,7 @@ public class Scales : MonoBehaviour
         //getal van objecten op beide weegschalen
         totalCount = scaleSide1.OBJcount + scaleSide2.OBJcount;
 
-        if( percentageDif == 0)
-        {
-            Debug.Log("niets");
-        }
+       
 
        if(totalCount == 9 && percentageDif == 0)
         {
