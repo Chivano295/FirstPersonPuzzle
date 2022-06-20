@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using Vec3 = UnityEngine.Vector3;
+using Vec4 = UnityEngine.Vector4;
 using static UnityEngine.Debug;
 
 public static class SaveExtensions
@@ -21,11 +22,28 @@ public static class SaveExtensions
         binaryWriter.Write(vector.z);
     }
 
+    public static void WriteVec4(this BinaryWriter binaryWriter, Vec4 vector)
+    {
+        binaryWriter.Write(vector.x);
+        binaryWriter.Write(vector.y);
+        binaryWriter.Write(vector.z);
+        binaryWriter.Write(vector.w);
+    }
+
     public static Vec3 ReadVec3(this BinaryReader binaryReader)
     {
         float x = binaryReader.ReadSingle();
         float y = binaryReader.ReadSingle();
         float z = binaryReader.ReadSingle();
+        return new Vec3(x, y, z);
+    }
+
+    public static Vec4 ReadVe4(this BinaryReader binaryReader)
+    {
+        float x = binaryReader.ReadSingle();
+        float y = binaryReader.ReadSingle();
+        float z = binaryReader.ReadSingle();
+        float w = binaryReader.ReadSingle();
         return new Vec3(x, y, z);
     }
 

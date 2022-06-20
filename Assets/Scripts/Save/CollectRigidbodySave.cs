@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class CollectRigidbodySave : MonoBehaviour
 {
+    public MenuDriver Driver;
     public Transform Player;
     public CharacterController PlayerController;
 
     public SaveGameManagment SaveManagment = new SaveGameManagment();
 
     private Rigidbody[] evil = null;
+
+    private void Awake()
+    {
+        if (Driver.GetFlag("LoadSave"))
+        {
+            DiscoverableLoad();
+        }
+    }
 
     public void DiscoverableSave()
     {
@@ -26,6 +35,8 @@ public class CollectRigidbodySave : MonoBehaviour
 
     public void DiscoverableLoad()
     {
+        if (evil == null)
+            evil = FindObjectsOfType<Rigidbody>();
         SaveData data = SaveManagment.Load();
         if (data == SaveData.OutdatedSave) throw new System.Exception("Please resave to update the save file");
         for (int i = 0; i < evil.Length; i++)

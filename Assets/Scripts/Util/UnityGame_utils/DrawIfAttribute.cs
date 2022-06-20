@@ -64,6 +64,15 @@ namespace UnityUtils
             this.comparisonType = comparisonType;
             this.disablingType = disablingType;
             this.isProperty = isProperty;
+        }/// <inheritdoc cref="DrawIfAttribute.DrawIfAttribute(string, object, ComparisonType, DisablingType)"/>
+        public DrawIfAttribute(string comparedPropertyName, DisablingType disablingType = DisablingType.DontDraw)
+        {
+
+            this.comparedPropertyName = comparedPropertyName;
+            this.comparedValue = true;
+            this.comparisonType = ComparisonType.Equals;
+            this.disablingType = disablingType;
+            this.isProperty = isProperty;
         }
     }
 }

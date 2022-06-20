@@ -11,13 +11,17 @@ public class SaveGameManagment
     public string SavePathEncrypted => Path.Combine(Application.dataPath, "save.dat");
     public FileSaveMode Fsm = FileSaveMode.FileSystemBinary;
 
-    public SaveData Load()
+    /// <summary>
+    /// Loads save data from disk in the specifield FileSaveMode <see cref="Fsm"/>
+    /// </summary>
+    /// <returns></returns>
+    public SaveData Load(bool loadLegacy = false)
     {
         SaveData sv = null;
         switch (Fsm)
         {
             case FileSaveMode.FileSystemBinary:
-                sv = LoadFsBinary();
+                sv = LoadFsBinary(loadLegacy);
                 break;
             case FileSaveMode.FileSystemJsonUtf8:
                 break;
@@ -44,7 +48,34 @@ public class SaveGameManagment
                 break;
         }
     }
+    /// <summary>
+    /// Attempts to delete the save file
+    /// </summary>
+    /// <returns>true if it succeeded, false if does not exists</returns>
+    public bool TryDelete()
+    {
+        switch (Fsm)
+        {
+            case FileSaveMode.FileSystemBinary:
+                if (File.Exists(SavePathBinary))
+                {
+                    Delete();
+                    return true;
+                }
+                break;
+            case FileSaveMode.FileSystemJsonUtf8:
+                break;
+            case FileSaveMode.FileSystemEncrypted:
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
 
+    /// <summary>
+    /// Deletes the save regardless if it exists or not
+    /// </summary>
     public void Delete()
     {
         switch (Fsm)
@@ -79,6 +110,34 @@ public class SaveGameManagment
         return saveDate;
     }
 
+    public bool TryLoadLegacyBinary(out SaveData saveData)
+    {
+        if (!File.Exists(SavePathBinary))
+        {
+            saveData = SaveData.OutdatedSave;
+            return false;
+        }
+        using FileStream fs = File.OpenRead(SavePathBinary);
+        using BinaryReader br = new BinaryReader(fs);
+        saveData = new SaveData();
+
+        saveData.SaveVersion = br.ReadInt32();
+        if (saveData.SaveVersion != CurrentSaveVersion)
+        {
+            saveData = SaveData.OutdatedSave;
+            return false;
+        }
+
+        saveData.PlayerPosition = br.ReadVec3();
+        int rigids = br.ReadInt32();
+        saveData.RigidBodyDatas = new RigidBodyData[rigids];
+        for (int i = 0; i < rigids; i++)
+        {
+            saveData.RigidBodyDatas[i] = RigidBodyData.ReadFromBinary(br);
+        }
+        return true;
+    }
+
     private void SaveFsBinary(SaveData saveData)
     {
         using FileStream fs = File.OpenWrite(SavePathBinary);
@@ -92,7 +151,7 @@ public class SaveGameManagment
             saveData.RigidBodyDatas[i].WriteToBinary(bw);
         }
     }
-    private SaveData LoadFsBinary()
+    private SaveData LoadFsBinary(bool loadLegacy = false)
     {
         if (!File.Exists(SavePathBinary))
             return null;

@@ -1,18 +1,29 @@
-﻿using System.Collections;
+﻿using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 using UnityUtils;
 using System;
+using System.Linq;
+using System.Text;
+
+using Text = TMPro.TextMeshProUGUI;
 
 public class MenuDriver : MonoBehaviour
 {
     //public SceneAsset SceneAss;
     public string SceneAssStr;
+    public string FlagsPath => Path.Combine(Application.dataPath, "flags");
+
+    public bool EnableResolutionWarning = false;
+    [DrawIf(nameof(EnableResolutionWarning), DisablingType.DontDraw)]
+    public Vector2 IntendedResolution = new Vector2(1920, 1080);
+    [DrawIf(nameof(EnableResolutionWarning), DisablingType.DontDraw)]
+    public Text WarningText;
 
     [DictionaryView]
-    public Dictionary<string, int> SceneLocations = new Dictionary<string, int>(); 
+    public Dictionary<string, int> SceneLocations = new Dictionary<string, int>();
     [SerializeField]
     private int menuScenes;
     [SerializeField]
@@ -23,21 +34,22 @@ public class MenuDriver : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefsExt.GetInt("game.initialized", 0) == 0)
-        {
-
-        }
         SceneLocations.Add("main", 1);
         SceneLocations.Add("credits", 4);
         SceneLocations.Add("settings", 5);
         SceneLocations.Add("game", 2);
-    }
+        SceneLocations.Add("gameNoCut", 3);
 
-    private void Update()
-    {
-        //Quaternion aa = aaaaa.transform.rotation;
-        //aa.eulerAngles = new Vector3(aa.eulerAngles.x, aa.eulerAngles.y, zR);
-        //aaaaa.transform.rotation = aa;
+        //Resolution warn UI
+        if (EnableResolutionWarning)
+        {
+            Resolution res = Screen.currentResolution;
+            if (res.width != IntendedResolution.x || res.height != IntendedResolution.y)
+                WarningText.gameObject.SetActive(true);
+            else
+                WarningText.gameObject.SetActive(false);
+
+        }
     }
 
     public void PlayButton()
@@ -72,11 +84,6 @@ public class MenuDriver : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    //public void ToStats()
-    //{
-    //    SceneManager.LoadScene(2);
-    //}
-
     [Obsolete("use GoTo(String) instead")]
     public void ToSettings()
     {
@@ -97,6 +104,75 @@ public class MenuDriver : MonoBehaviour
 
     public void PauseGame()
     {
-        
+
+    }
+
+    public void SetFlag(string crossSceneFlag)
+    {
+        FileStream fs = new FileStream(FlagsPath, FileMode.OpenOrCreate);
+        StreamReader sr = new StreamReader(fs, Encoding.UTF8, false, 1024, true);
+
+        string flagsStr = sr.ReadToEnd();
+        flagsStr = flagsStr.TrimEnd(',');
+        string[] flags = flagsStr.Split(',');
+
+        HashSet<string> uniqFlags = new HashSet<string>();
+        foreach (var flag in flags)
+        {
+            if (flag == string.Empty) continue;
+            uniqFlags.Add(flag);
+        }
+        uniqFlags.Add(crossSceneFlag);
+
+        string[] exportFlags = new string[uniqFlags.Count];
+        uniqFlags.CopyTo(exportFlags);
+
+        sr.Close();
+        StreamWriter sw = new StreamWriter(fs, Encoding.UTF8, 1024, true);
+        sw.Write(string.Join(",", exportFlags));
+
+        sw.Close();
+        fs.Close();
+    }
+
+    public bool GetFlag(string flag)
+    {
+        try
+        {
+            FileStream fs = new FileStream(FlagsPath, FileMode.Open);
+            StreamReader sr = new StreamReader(fs, Encoding.UTF8, false, 1024, true);
+
+            string flagsStr = sr.ReadToEnd();
+            flagsStr = flagsStr.TrimEnd(',');
+            string[] flags = flagsStr.Split(',');
+
+            HashSet<string> uniqFlags = new HashSet<string>();
+            foreach (var flagChj in flags)
+            {
+                if (flagChj == string.Empty) continue;
+                if (flagChj == flag) continue;
+                uniqFlags.Add(flag);
+            }
+
+            string[] exportFlags = new string[uniqFlags.Count];
+            uniqFlags.CopyTo(exportFlags);
+
+            sr.Close();
+            fs.Close();
+            fs = new FileStream(FlagsPath, FileMode.Truncate);
+
+            StreamWriter sw = new StreamWriter(fs, Encoding.UTF8, 1024, true);
+            sw.Write(string.Join(",", exportFlags));
+
+            sw.Close();
+            fs.Close();
+
+            return flags.Contains(flag);
+
+        }
+        catch(FileNotFoundException)
+        {
+            return false;
+        }
     }
 }
