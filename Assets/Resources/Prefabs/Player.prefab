@@ -323,22 +323,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6469a122ebf0084caf8d42312c8864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsClimbing: 0
   InLadderRange: 0
   LookingAtLadder: 0
   controller: {fileID: 6456924923491335607}
   SuperJump: 0
-  GroundCheck: {fileID: 0}
+  GroundCheck: {fileID: 6456924922977367410}
   Groundmask:
     serializedVersion: 2
-    m_Bits: 0
-  speed: 7
+    m_Bits: 64
+  speed: 12
   gravity: -9.81
-  jumpHeight: 10
+  jumpHeight: 3
   cooldown: 0.3
   superJumpHeight: 10
   groundDistance: 0.4
+  elevationSpeed: 0.5
   isGrounded: 0
-  isClimbing: 0
 --- !u!143 &6456924923491335607
 CharacterController:
   m_ObjectHideFlags: 0
