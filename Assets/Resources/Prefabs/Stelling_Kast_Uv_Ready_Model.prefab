@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8232968481123127451}
   - component: {fileID: 5039170246114271038}
   - component: {fileID: 7064544633040874484}
+  - component: {fileID: -1566035245613227937}
   m_Layer: 0
   m_Name: Stelling_Kast_Uv_Ready_Model
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-1566035245613227937
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8721978904394631713}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7795986423222554426, guid: e1ceca52f6c535a4786a00b320db0070, type: 3}
