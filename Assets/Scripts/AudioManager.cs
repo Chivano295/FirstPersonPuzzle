@@ -10,7 +10,7 @@ using UnityUtils;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
-    public Sound[] sounds;
+    public List<Sound> sounds;
 
     // Start is called before the first frame update
     void Awake()
@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
     //Play the sound specified
     public void Play(string name)
     {   
-        Sound s = System.Array.Find(sounds, sound => sound.name == name);
+        Sound s = sounds.Find(sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning($"Sound with name {name} is not found! Did you made a typo?");
@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
 
     public void Pause(string name)
     {
-        Sound s = System.Array.Find(sounds, sound => sound.name == name);
+        Sound s = sounds.Find(sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning($"Sound with name {name} is not found! Did you made a typo?");
@@ -57,7 +57,7 @@ public class AudioManager : MonoBehaviour
     }
     public void Resume(string name) 
     {
-        Sound s = System.Array.Find(sounds, sound => sound.name == name);
+        Sound s = sounds.Find(sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning($"Sound with name {name} is not found! Did you made a typo?");
@@ -69,7 +69,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip GetClip(string name)
     {
-        Sound s = System.Array.Find(sounds, sound => sound.name == name);
+        Sound s = sounds.Find(sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning($"Sound with name {name} is not found! Did you made a typo?");
