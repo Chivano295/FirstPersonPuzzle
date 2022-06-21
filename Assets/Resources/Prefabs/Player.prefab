@@ -340,6 +340,7 @@ MonoBehaviour:
   groundDistance: 0.4
   elevationSpeed: 0.5
   isGrounded: 0
+  isClimbing: 0
 --- !u!143 &6456924923491335607
 CharacterController:
   m_ObjectHideFlags: 0
