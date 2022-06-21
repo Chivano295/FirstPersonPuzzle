@@ -68,7 +68,7 @@ public class Scales : MonoBehaviour
 
        if(totalCount == 9 && percentageDif == 0)
         {
-            anim.SetBool("Doorup", true);
+            anim.SetBool("Door", true);
         }
 
     }
