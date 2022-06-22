@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Scales : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Scales : MonoBehaviour
     public Animator anim;
     public int difference;
     public float percentageDif;
+
+    public TextMeshPro objCount;
 
     public Transform Draaibalk;
 
@@ -51,9 +54,7 @@ public class Scales : MonoBehaviour
 
         rotation = percentageDif * degreeMP;
         //doet de daadwerkelijke rotatie
-        //Quaternion aa = Draaibalk.transform.localRotation;
-        //aa.eulerAngles = new Vector3(aa.eulerAngles.x, aa.eulerAngles.y, rotation);
-        //Draaibalk.transform.localRotation = aa;
+       
 
         if (rotation != 0 && !updated)
         {
@@ -65,11 +66,19 @@ public class Scales : MonoBehaviour
         totalCount = scaleSide1.OBJcount + scaleSide2.OBJcount;
 
        
-
        if(totalCount == 9 && percentageDif == 0)
         {
             anim.SetBool("Door", true);
+            objCount.color = Color.green;
         }
 
+       if(totalCount != 9)
+        {
+            objCount.color = Color.red;
+        }
+
+        objCount.text = "" + totalCount;
+
+        
     }
 }
