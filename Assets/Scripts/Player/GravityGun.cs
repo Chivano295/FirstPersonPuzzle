@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class GravityGun : MonoBehaviour
@@ -47,7 +48,7 @@ public class GravityGun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && Currentgrab == null)
         {
             RaycastHit hit; // schiet raycast vanuit camera naar waar je kijkt
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, distance))
+            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, distance, 0xffff,QueryTriggerInteraction.Ignore))
             {
                 if (hit.transform.tag == "Grab") //checkt of hij grab tag heeft
                 {

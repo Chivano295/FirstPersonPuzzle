@@ -27,7 +27,9 @@ public class WeegSchaal : MonoBehaviour
     }
     public void OnTriggerExit(Collider other)
     {
-        WeegschaalWeight -= other.gameObject.GetComponent<ObjectWeight>().weight;
+        var weight = other.gameObject.GetComponent<ObjectWeight>();
+        if (weight == null) return;
+        WeegschaalWeight -= weight.weight;
         text.text = "" + WeegschaalWeight;
         if (WeegschaalWeight != NeededWeight)
         {
