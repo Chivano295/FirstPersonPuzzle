@@ -51,7 +51,10 @@ public class AnimationManager : MonoBehaviour
         for (int i = 0; i < SaveButtons.Length; i++)
         {
             //LeanTween.moveX(SaveButtons[i], SaveButtonsLocation.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
-            LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
+            if (i == SaveButtons.Length - 1)
+                LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1).setOnComplete(PlayFileSelect);
+            else
+                LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
 
         }
         //cart.transform.position = track.Begin;
@@ -69,9 +72,22 @@ public class AnimationManager : MonoBehaviour
         //Move main menu buttons into view
         for (int i = 0; i < MainButtons.Length; i++)
         {
-            LeanTween.moveX(MainButtons[i], tracks[i].Begin.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
+            if (i == MainButtons.Length - 1)
+                LeanTween.moveX(MainButtons[i], tracks[i].Begin.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1).setOnComplete(PlayTitle);
+            else
+                LeanTween.moveX(MainButtons[i], tracks[i].Begin.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
         }
         //LeanTween.moveX(cart, track.Begin.x, TravelTime).setDelay(ButtonTransitionInterval + 1);
+    }
+    public void PlayFileSelect()
+    {
+        AudioManager.Instance.FadeOut("title_bgm");
+        AudioManager.Instance.Play("file_select");
+    }
+    public void PlayTitle()
+    {
+        AudioManager.Instance.FadeOut("file_select");
+        AudioManager.Instance.Play("title_bgm");
     }
 
 }

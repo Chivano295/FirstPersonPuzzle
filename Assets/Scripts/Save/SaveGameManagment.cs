@@ -6,9 +6,9 @@ using UnityEngine;
 public class SaveGameManagment
 {
     public const int CurrentSaveVersion = 1;
-    public string SavePathBinary => Path.Combine(Application.dataPath, "save.bin");
-    public string SavePathJson => Path.Combine(Application.dataPath, "save.json");
-    public string SavePathEncrypted => Path.Combine(Application.dataPath, "save.dat");
+    public string SavePathBinary => Path.Combine(Application.persistentDataPath, "save.bin");
+    public string SavePathJson => Path.Combine(Application.persistentDataPath, "save.json");
+    public string SavePathEncrypted => Path.Combine(Application.persistentDataPath, "save.dat");
     public FileSaveMode Fsm = FileSaveMode.FileSystemBinary;
 
     /// <summary>
@@ -163,6 +163,13 @@ public class SaveGameManagment
         saveData.SaveVersion = br.ReadInt32();
         if (saveData.SaveVersion != CurrentSaveVersion)
         {
+            if (loadLegacy)
+            {
+                if (TryLoadLegacyBinary(out saveData))
+                {
+                    return saveData;
+                }
+            }
             return SaveData.OutdatedSave;
         }
 

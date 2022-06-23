@@ -31,8 +31,11 @@ public class GravityGun : MonoBehaviour
         }
         if (!LeanTween.isTweening(HoverAncor.gameObject))
         {
+            //Get the euler angles
             Vector3 rot = Cam.transform.localRotation.eulerAngles;
             float angle = rot.x;
+            
+            //Limits the angle to MinLook and MaxLook
             if (angle >= 180f && angle < 360f + MinLook)
             {
                 angle = MinLook;
@@ -98,6 +101,7 @@ public class GravityGun : MonoBehaviour
         Currentgrab = null;
     }
 
+    //Wraps a Euler angle
     private float WrapAngle(float angle)
     {
         float o = angle;
