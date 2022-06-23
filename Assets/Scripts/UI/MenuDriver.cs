@@ -175,4 +175,20 @@ public class MenuDriver : MonoBehaviour
             return false;
         }
     }
+
+    public void PlayFileSelect()
+    {
+        AudioManager.Instance.FadeOut("title_bgm");
+        AudioManager.Instance.Play("file_select");
+    }
+    public void PlayTitle()
+    {
+        if (AudioManager.Instance.GetSource("file_select").isPlaying)
+            AudioManager.Instance.FadeOut("file_select");
+
+        if (AudioManager.Instance.GetSource("settings_bgm").isPlaying)
+            AudioManager.Instance.FadeOut("settings_bgm");
+        
+        AudioManager.Instance.Play("title_bgm");
+    }
 }
