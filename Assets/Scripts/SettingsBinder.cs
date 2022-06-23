@@ -103,6 +103,9 @@ public class SettingsBinder : MonoBehaviour
         #endregion
 
         DateText.text = Sgm.GetLastSaveDate().ToString();
+
+        AudioManager.Instance.FadeOut("title_bgm");
+        AudioManager.Instance.Play("settings_bgm");
     }
 
     #region VideoFunc

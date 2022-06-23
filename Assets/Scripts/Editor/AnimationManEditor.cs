@@ -39,13 +39,20 @@ public class ABEditor : Editor
             ABTrack track = (ABTrack)target;
             track.End = track.gameObject.transform.position;
         }
+        GUILayout.EndHorizontal();
+        GUILayout.BeginHorizontal();
         if (GUILayout.Button("Snap to begin"))
         {
             ABTrack track = (ABTrack)target;
             track.gameObject.transform.position = track.Begin;
         }
-
+        if (GUILayout.Button("Snap to end"))
+        {
+            ABTrack track = (ABTrack)target;
+            track.gameObject.transform.position = track.End;
+        }
         GUILayout.EndHorizontal();
+
         base.OnInspectorGUI();
         //OnSceneGUI();
     }
