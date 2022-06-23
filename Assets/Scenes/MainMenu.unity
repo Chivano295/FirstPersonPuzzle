@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh232760
+  m_Name: pb_Mesh58032
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4142,7 +4142,7 @@ MonoBehaviour:
   hideMethod: 1
   hideDelay: 1
   doFinish: 0
-  DebugLogging: 1
+  DebugLogging: 0
   IsLocked: 0
 --- !u!114 &1080918215
 MonoBehaviour:
@@ -4157,17 +4157,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - clip: {fileID: 8300000, guid: c639707a6b076524b9062f64979f5345, type: 3}
+  - clip: {fileID: 8300000, guid: cafed0babf3411842bda25e1ec1b6d88, type: 3}
     ID: 0
-    Name: door_slide_open
+    Name: title_bgm
     Volume: 0.5
     Pitch: 1
     Source: {fileID: 0}
-    PlayOnAwake: 0
+    PlayOnAwake: 1
     Loop: 0
     SpacialBlend: 0
     MixerGroup: {fileID: 1187245747418361015, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
-  - clip: {fileID: 8300000, guid: 56f494e556de2fe409fb10c25d89f8ca, type: 3}
+  - clip: {fileID: 8300000, guid: ed141e1c6541b6743a3b82b75155974c, type: 3}
     ID: 1
     Name: door_slide_close
     Volume: 0.5
@@ -4177,6 +4177,37 @@ MonoBehaviour:
     Loop: 0
     SpacialBlend: 0
     MixerGroup: {fileID: 1187245747418361015, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
+  - clip: {fileID: 8300000, guid: c639707a6b076524b9062f64979f5345, type: 3}
+    ID: 2
+    Name: door_slide_open
+    Volume: 0.5
+    Pitch: 1
+    Source: {fileID: 0}
+    PlayOnAwake: 0
+    Loop: 0
+    SpacialBlend: 0
+    MixerGroup: {fileID: 1187245747418361015, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
+  - clip: {fileID: 8300000, guid: 56f494e556de2fe409fb10c25d89f8ca, type: 3}
+    ID: 3
+    Name: door_slide_close
+    Volume: 0.5
+    Pitch: 1
+    Source: {fileID: 0}
+    PlayOnAwake: 0
+    Loop: 0
+    SpacialBlend: 0
+    MixerGroup: {fileID: 1187245747418361015, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
+  - clip: {fileID: 8300000, guid: b28b78fc56a02484da3ca64092afa043, type: 3}
+    ID: 4
+    Name: file_select
+    Volume: 0.5
+    Pitch: 1
+    Source: {fileID: 0}
+    PlayOnAwake: 0
+    Loop: 1
+    SpacialBlend: 0
+    MixerGroup: {fileID: 1826331194322097903, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
+  fadeOutDuration: 1.28
 --- !u!4 &1080918216
 Transform:
   m_ObjectHideFlags: 0
@@ -6048,7 +6079,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1738614235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6116,6 +6147,7 @@ MonoBehaviour:
     Loop: 0
     SpacialBlend: 0
     MixerGroup: {fileID: 0}
+  fadeOutDuration: 0
 --- !u!1 &1781213837
 GameObject:
   m_ObjectHideFlags: 0
