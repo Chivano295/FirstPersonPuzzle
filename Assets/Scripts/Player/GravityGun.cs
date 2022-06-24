@@ -17,11 +17,16 @@ public class GravityGun : MonoBehaviour
     public float MinLook = 30f;
     public float MaxLook = 60f;
 
+    [Header("WARMING: setting this value too low will cause performance issues")]
+    [SerializeField] private int frameMoveInterval = 5;
+
     [SerializeField] private float distance = 5;
     [SerializeField] private GameObject player; 
     [SerializeField] private int strength = 1;
     [SerializeField] private float   smoothTime = 0.2f;
     [SerializeField] private float angleOffset = 90f;
+
+    private int frameCounter = 0;
 
     private void Update()
     {
@@ -29,7 +34,7 @@ public class GravityGun : MonoBehaviour
         {
             LeanTween.move(Currentgrab, HoverPos.position, smoothTime).setEaseOutCubic();
         }
-        if (!LeanTween.isTweening(HoverAncor.gameObject))
+        if ((frameMoveInterval == -1&& !LeanTween.isTweening(HoverAncor.gameObject)) || frameCounter == 0)
         {
             //Get the euler angles
             Vector3 rot = Cam.transform.localRotation.eulerAngles;
@@ -47,6 +52,11 @@ public class GravityGun : MonoBehaviour
             rot.x = angle;
             //rot.x = Mathf.Clamp(rot.x - angleOffset, WrapAngle(MinLook), MaxLook);
             LeanTween.rotateLocal(HoverAncor.gameObject, rot, smoothTime);
+            frameCounter = frameMoveInterval;
+        }
+        else
+        {
+            frameCounter--;
         }
         if (Input.GetKeyDown(KeyCode.E) && Currentgrab == null)
         {

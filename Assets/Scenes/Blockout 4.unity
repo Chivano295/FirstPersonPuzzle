@@ -3937,6 +3937,7 @@ MonoBehaviour:
   MaxHeldObjects: 1
   MinLook: -60
   MaxLook: 30
+  frameMoveInterval: 5
   distance: 5
   player: {fileID: 182253238}
   strength: 1
@@ -4430,6 +4431,79 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1001 &199305200
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 348176367}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35714275
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.35714275
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.35714275
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.4080014
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.62317914
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.7417878
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.63864815
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.04954044
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7667932
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.041261338
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 259.581
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 7.393
+      objectReference: {fileID: 0}
+    - target: {fileID: -2513955152888471705, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a5b95b7bb7eed145b8ed6879a7651d4, type: 2}
+    - target: {fileID: 919132149155446097, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
+      propertyPath: m_Name
+      value: Gravity Gun
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af98a807e735f0d43a3079fa02659d04, type: 3}
 --- !u!43 &199669210
 Mesh:
   m_ObjectHideFlags: 0
@@ -9403,7 +9477,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: d549f961d156216419818da0bd0d614f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21733,7 +21807,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f9f633a994dda44589c31c4779d5109, type: 2}
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -27207,6 +27281,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2d91966482e8cfe4e88deddd620a52d3, type: 3}
       propertyPath: m_Name
       value: Weapon_Fbx
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2d91966482e8cfe4e88deddd620a52d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2d91966482e8cfe4e88deddd620a52d3, type: 3}
       propertyPath: m_TagString

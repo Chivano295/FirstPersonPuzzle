@@ -26,7 +26,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.size
-    value: 7
+    value: 8
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[0].clip
@@ -274,7 +274,7 @@ Preset:
     objectReference: {fileID: 8300000, guid: 7421b2f5df2140849857900817f741a8, type: 3}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[6].ID
-    value: 5
+    value: 6
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[6].Name
@@ -308,6 +308,46 @@ Preset:
     propertyPath: sounds.Array.data[6].MixerGroup
     value: 
     objectReference: {fileID: 1826331194322097903, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].clip
+    value: 
+    objectReference: {fileID: 8300000, guid: 1f03b021f5b9b2c4db90496230301281, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].ID
+    value: 7
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].Name
+    value: pickup
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].Volume
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].Pitch
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].Source
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].PlayOnAwake
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].Loop
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].SpacialBlend
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[7].MixerGroup
+    value: 
+    objectReference: {fileID: 1187245747418361015, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
   - target: {fileID: 0}
     propertyPath: fadeOutDuration
     value: 1
