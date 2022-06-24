@@ -47,13 +47,13 @@ public class AnimationManager : MonoBehaviour
             //LeanTween.moveX(MainButtons[i], XOutOfScreen, TravelTime).setDelay(i * ButtonTransitionInterval);
             LeanTween.moveX(MainButtons[i], tracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval);
         }
-        
+        driver.PlayFileSelect();
         //Move save selection buttons into view
         for (int i = 0; i < SaveButtons.Length; i++)
         {
             //LeanTween.moveX(SaveButtons[i], SaveButtonsLocation.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
             if (i == SaveButtons.Length - 1)
-                LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1).setOnComplete(driver.PlayFileSelect);
+                LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);//.setOnComplete(driver.PlayFileSelect);
             else
                 LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
 

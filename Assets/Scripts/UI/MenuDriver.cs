@@ -191,4 +191,15 @@ public class MenuDriver : MonoBehaviour
         
         AudioManager.Instance.Play("title_bgm");
     }
+
+    public void PlayGameSound()
+    {
+        AudioManager.Instance.FadeOut("file_select");
+        AudioManager.Instance.Play("game_bgm");
+    }
+
+    public void FadeSound(string s)
+    {
+        AudioManager.Instance.FadeOut(s);
+    }
 }

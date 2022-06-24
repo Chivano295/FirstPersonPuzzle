@@ -78,7 +78,7 @@ public class GravityGun : MonoBehaviour
         rot.x = Mathf.Clamp(rot.x, MinLook, MaxLook);
         LeanTween.rotateLocal(HoverAncor.gameObject, rot, 0.2f);
 
-
+        AudioManager.Instance?.Play("pickup");
         Currentgrab = target;
     }
     public void Drop()
