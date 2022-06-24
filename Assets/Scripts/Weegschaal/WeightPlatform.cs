@@ -12,7 +12,15 @@ public class WeightPlatform : MonoBehaviour
     public float platformMP;
     [SerializeField] private float moveTime;
 
+    public Animator anim;
 
+    public void Update()
+    {
+        if(WeegschaalWeight == 80)
+        {
+            anim.SetBool("Door", true);
+        }
+    }
     public void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Grab")
