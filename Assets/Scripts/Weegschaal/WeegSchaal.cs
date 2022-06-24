@@ -10,7 +10,10 @@ public class WeegSchaal : MonoBehaviour
     public TextMeshPro text;
     public int NeededWeight;
     public DoorTrigger trigger;
-   
+    private string DoorOpenSoundName = "door_slide_open";
+    private bool doorCheck;
+    
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Grab")
@@ -21,6 +24,8 @@ public class WeegSchaal : MonoBehaviour
             if(WeegschaalWeight == NeededWeight)
             {
                 trigger.SetAnim();
+                AudioManager.Instance.Play(DoorOpenSoundName);
+                doorCheck = true;
             }
           
         }
@@ -31,9 +36,11 @@ public class WeegSchaal : MonoBehaviour
         if (weight == null) return;
         WeegschaalWeight -= weight.weight;
         text.text = "" + WeegschaalWeight;
-        if (WeegschaalWeight != NeededWeight)
+        if (WeegschaalWeight != NeededWeight && doorCheck)
         {
+           
             trigger.SetAnimFalse();
+            doorCheck = false;
         }
     }
 }
