@@ -18,6 +18,7 @@ public class AnimationManager : MonoBehaviour
 
     [SerializeField] private ABTrack track;
     [SerializeField] private GameObject cart;
+    [SerializeField] private MenuDriver driver;
 
     private ABTrack[] tracks;
     private ABTrack[] saveSectionTracks;
@@ -46,13 +47,13 @@ public class AnimationManager : MonoBehaviour
             //LeanTween.moveX(MainButtons[i], XOutOfScreen, TravelTime).setDelay(i * ButtonTransitionInterval);
             LeanTween.moveX(MainButtons[i], tracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval);
         }
-        
+        driver.PlayFileSelect();
         //Move save selection buttons into view
         for (int i = 0; i < SaveButtons.Length; i++)
         {
             //LeanTween.moveX(SaveButtons[i], SaveButtonsLocation.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
             if (i == SaveButtons.Length - 1)
-                LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1).setOnComplete(PlayFileSelect);
+                LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);//.setOnComplete(driver.PlayFileSelect);
             else
                 LeanTween.moveX(SaveButtons[i], saveSectionTracks[i].End.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
 
@@ -73,21 +74,10 @@ public class AnimationManager : MonoBehaviour
         for (int i = 0; i < MainButtons.Length; i++)
         {
             if (i == MainButtons.Length - 1)
-                LeanTween.moveX(MainButtons[i], tracks[i].Begin.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1).setOnComplete(PlayTitle);
+                LeanTween.moveX(MainButtons[i], tracks[i].Begin.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1).setOnComplete(driver.PlayTitle);
             else
                 LeanTween.moveX(MainButtons[i], tracks[i].Begin.x, TravelTime).setDelay(i * ButtonTransitionInterval + 1);
         }
         //LeanTween.moveX(cart, track.Begin.x, TravelTime).setDelay(ButtonTransitionInterval + 1);
     }
-    public void PlayFileSelect()
-    {
-        AudioManager.Instance.FadeOut("title_bgm");
-        AudioManager.Instance.Play("file_select");
-    }
-    public void PlayTitle()
-    {
-        AudioManager.Instance.FadeOut("file_select");
-        AudioManager.Instance.Play("title_bgm");
-    }
-
 }

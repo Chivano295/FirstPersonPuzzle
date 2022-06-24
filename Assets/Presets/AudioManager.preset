@@ -26,7 +26,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.size
-    value: 5
+    value: 7
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[0].clip
@@ -54,11 +54,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[0].PlayOnAwake
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[0].Loop
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[0].SpacialBlend
@@ -67,11 +67,11 @@ Preset:
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[0].MixerGroup
     value: 
-    objectReference: {fileID: 1187245747418361015, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
+    objectReference: {fileID: 1826331194322097903, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[1].clip
     value: 
-    objectReference: {fileID: 8300000, guid: ed141e1c6541b6743a3b82b75155974c, type: 3}
+    objectReference: {fileID: 8300000, guid: 56f494e556de2fe409fb10c25d89f8ca, type: 3}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[1].ID
     value: 1
@@ -194,7 +194,7 @@ Preset:
     objectReference: {fileID: 8300000, guid: b28b78fc56a02484da3ca64092afa043, type: 3}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[4].ID
-    value: 3
+    value: 4
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sounds.Array.data[4].Name
@@ -229,7 +229,87 @@ Preset:
     value: 
     objectReference: {fileID: 1826331194322097903, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
   - target: {fileID: 0}
-    propertyPath: fadeOutDuration
+    propertyPath: sounds.Array.data[5].clip
+    value: 
+    objectReference: {fileID: 8300000, guid: fcd01158a89c4a64e99573ca8bb272dd, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].ID
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].Name
+    value: settings_bgm
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].Volume
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].Pitch
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].Source
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].PlayOnAwake
     value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].Loop
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].SpacialBlend
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[5].MixerGroup
+    value: 
+    objectReference: {fileID: 1826331194322097903, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].clip
+    value: 
+    objectReference: {fileID: 8300000, guid: 7421b2f5df2140849857900817f741a8, type: 3}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].ID
+    value: 5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].Name
+    value: game_bgm
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].Volume
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].Pitch
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].Source
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].PlayOnAwake
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].Loop
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].SpacialBlend
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: sounds.Array.data[6].MixerGroup
+    value: 
+    objectReference: {fileID: 1826331194322097903, guid: ac0d68eb71ef08247ac43e4754983c79, type: 2}
+  - target: {fileID: 0}
+    propertyPath: fadeOutDuration
+    value: 1
     objectReference: {fileID: 0}
   m_ExcludedProperties: []
