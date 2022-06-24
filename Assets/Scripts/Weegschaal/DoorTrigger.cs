@@ -11,7 +11,7 @@ public class DoorTrigger : MonoBehaviour
     public void SetAnim()
     {
         anim.SetBool("Door", true);
-        AudioManager.Instance.Play(DoorOpenSoundName);
+       
     }
     public void SetAnimFalse()
     {

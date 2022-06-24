@@ -11,8 +11,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
     public List<Sound> sounds;
+    public float fadeOutDuration;
 
-    // Start is called before the first frame update
     void Awake()
     {
         Instance = this;
@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
             s.Source.clip = s.clip;
             s.Source.playOnAwake = s.PlayOnAwake;
             s.Source.volume = s.Volume;
-            s.Source.pitch = s.Pitch;   
+            s.Source.pitch = s.Pitch;
             s.Source.outputAudioMixerGroup = s.MixerGroup;
             if (s.PlayOnAwake)
             {
@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
 
     //Play the sound specified
     public void Play(string name)
-    {   
+    {
         Sound s = sounds.Find(sound => sound.Name == name);
         if (s == null)
         {
@@ -59,7 +59,7 @@ public class AudioManager : MonoBehaviour
         }
         s.Source.Pause();
     }
-    public void Resume(string name) 
+    public void Resume(string name)
     {
         Sound s = sounds.Find(sound => sound.Name == name);
         if (s == null)
@@ -81,5 +81,36 @@ public class AudioManager : MonoBehaviour
         }
 
         return s.clip;
+    }
+    public AudioSource GetSource(string name)
+    {
+        Sound s = sounds.Find(sound => sound.Name == name);
+        if (s == null)
+        {
+            Debug.LogWarning($"Sound with name {name} is not found! Did you made a typo?");
+            return null;
+        }
+
+        return s.Source;
+    }
+
+    public void FadeOut(string name)
+    {
+        StartCoroutine(FadeOutCurrentAudio(GetSource(name)));
+    }
+
+    IEnumerator FadeOutCurrentAudio(AudioSource source)
+    {
+        float currentTime = 0;
+        float start = source.volume;
+        while (currentTime < fadeOutDuration)
+        {
+            currentTime += Time.deltaTime;
+            source.volume = Mathf.Lerp(start, 0, currentTime / fadeOutDuration);
+            yield return null;
+        }
+        source.Stop();
+        source.volume = start;
+        yield break;
     }
 }

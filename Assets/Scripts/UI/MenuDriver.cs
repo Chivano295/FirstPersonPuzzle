@@ -98,7 +98,7 @@ public class MenuDriver : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning(string.Format("Scene with name {0}", destination));
+            Debug.LogWarning(string.Format("Scene with name {0} not found", destination));
         }
     }
 
