@@ -15,7 +15,16 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+
+            Destroy(this);
+        }
         foreach (Sound s in sounds)
         {
             s.Source = gameObject.AddComponent<AudioSource>();
