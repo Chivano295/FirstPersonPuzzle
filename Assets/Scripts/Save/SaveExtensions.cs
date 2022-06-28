@@ -7,14 +7,27 @@ using Vec3 = UnityEngine.Vector3;
 using Vec4 = UnityEngine.Vector4;
 using static UnityEngine.Debug;
 
+/// <summary>
+/// Save extension methods
+/// </summary>
 public static class SaveExtensions
 {
+    /// <summary>
+    /// Extracts the position, velocity and angular velocity from a rigidbody
+    /// </summary>
+    /// <param name="rb"></param>
+    /// <returns></returns>
     public static RigidBodyData GetRigidBodyData(this UnityEngine.Rigidbody rb)
     {
         RigidBodyData rbd = new RigidBodyData(rb.position, rb.velocity, rb.angularVelocity);
         return rbd;
     }
 
+    /// <summary>
+    /// Writes a Vector3 to a stream via a binary writer
+    /// </summary>
+    /// <param name="binaryWriter"></param>
+    /// <param name="vector"></param>
     public static void WriteVec3(this BinaryWriter binaryWriter, Vec3 vector)
     {
         binaryWriter.Write(vector.x);
@@ -30,6 +43,11 @@ public static class SaveExtensions
         binaryWriter.Write(vector.w);
     }
 
+    /// <summary>
+    /// Reads a Vector3 from a stream via a binary reader
+    /// </summary>
+    /// <param name="binaryWriter"></param>
+    /// <param name="vector"></param>
     public static Vec3 ReadVec3(this BinaryReader binaryReader)
     {
         float x = binaryReader.ReadSingle();
@@ -38,7 +56,7 @@ public static class SaveExtensions
         return new Vec3(x, y, z);
     }
 
-    public static Vec4 ReadVe4(this BinaryReader binaryReader)
+    public static Vec4 ReadVec4(this BinaryReader binaryReader)
     {
         float x = binaryReader.ReadSingle();
         float y = binaryReader.ReadSingle();
@@ -47,6 +65,12 @@ public static class SaveExtensions
         return new Vec3(x, y, z);
     }
 
+    /// <summary>
+    /// We don't talk about this
+    /// </summary>
+    /// <typeparam name="TStruct"></typeparam>
+    /// <param name="binaryWriter"></param>
+    /// <param name="instance"></param>
     public static void WriteStruct<TStruct>(this BinaryWriter binaryWriter, TStruct instance) where TStruct : unmanaged
     {
         Type structType = instance.GetType();
@@ -73,7 +97,7 @@ public static class SaveExtensions
             }
         }
     }
-
+    
     public static TStruct ReadStruct<TStruct>(this BinaryReader binaryReader) where TStruct : unmanaged
     {
         TStruct read = new TStruct();
