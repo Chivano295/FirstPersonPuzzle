@@ -153,16 +153,24 @@ public class SaveGameManagment
     }
     private SaveData LoadFsBinary(bool loadLegacy = false)
     {
+        //Check if the save file exists if not return null
         if (!File.Exists(SavePathBinary))
             return null;
+
+        //Open save file for reading
         using FileStream fs = File.OpenRead(SavePathBinary);
+        //Create a Binary Reader passing in the newly created file stream
         using BinaryReader br = new BinaryReader(fs);
 
+        //Init bare instance
         SaveData saveData = new SaveData();
 
+        //Read version number
         saveData.SaveVersion = br.ReadInt32();
+        //Check save file compatibility
         if (saveData.SaveVersion != CurrentSaveVersion)
         {
+            //If the param passed is true attempt to convert the previous version binary to the current version
             if (loadLegacy)
             {
                 if (TryLoadLegacyBinary(out saveData))
@@ -170,10 +178,13 @@ public class SaveGameManagment
                     return saveData;
                 }
             }
+            //If param is false or loading the old save fails return an outdated save object (version set to -1)
             return SaveData.OutdatedSave;
         }
 
         saveData.PlayerPosition = br.ReadVec3();
+
+        //Reads the amount of  Rigidbodydatas to load
         int rigids = br.ReadInt32();
         saveData.RigidBodyDatas = new RigidBodyData[rigids];
         for (int i = 0; i < rigids; i++)

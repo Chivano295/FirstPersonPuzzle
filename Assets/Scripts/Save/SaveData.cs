@@ -46,6 +46,7 @@ public struct RigidBodyData
         this.AngularVelocity = avl;
     }
 
+    //Placed the values of the data into a rigidbody
     public void SetRigidbody(UnityEngine.Rigidbody rb)
     {
         rb.position = this.Position;
